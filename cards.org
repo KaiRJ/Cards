@@ -1,0 +1,51 @@
+* initial research
+** multiplayer
+** DONE free card assets
+CLOSED: [2026-05-23 Sat 13:23]
+** git games
+- https://github.com/rametta/Pali
+- https://github.com/Valyreon/seven-card-game-godot
+* initial set
+** DONE create card scene
+CLOSED: [2026-05-23 Sat 13:45]
+** DONE create deck scene
+CLOSED: [2026-05-23 Sat 14:41]
+- holds all the assets and cards and can "send" cards to players
+** create player scene
+- holds the card scenes
+- has an identifier for the player eg. 1,2,3,4
+** create simple deal configuration
+- i like the idea of this being a resource i can just send set on the deck
+- be able to set which side of screen to deal to?
+- via. signal?
+** multiplayer
+** push to github
+* multiplayer
+** two players
+** four players
+* golf
+- a good animation where the card is revealed
+  - like the back "dissolves" after its been placed or before
+  - this could also work for setting the game up
+* sueca
+** deal cards
+- see 3rd example here
+  https://www.youtube.com/watch?v=pK2vI2-jCH4
+  see downloads for source code
+** hide cards
+- show and hide cards with tab/space
+* sandbox
+- can deal, and set cards where ever you like
+- one person deals
+* final touches
+- could release this on twitch
+- add godot splash screen and crt turn on
+- have the rules availble to look at (hit tab)
+- like the idea that you can see everyones courser
+- put crt filter over top
+- game icon (just a one of the cards or a hand)
+
+** better cards
+https://drawsgood.itch.io/8bit-deck-card-assets
+  - make super simple ones for now and only buy at the end
+  - could also just copy them and try change the style to be lizards or something

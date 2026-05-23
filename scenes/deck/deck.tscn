@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c0te8034o5i1q"]
+
+[ext_resource type="Script" uid="uid://24eblsabbg5e" path="res://scenes/deck/deck.gd" id="1_awifi"]
+[ext_resource type="Texture2D" uid="uid://dn12pkqx4c23e" path="res://scenes/deck/cards/42_kerenel_Cards.png" id="1_uw8ea"]
+[ext_resource type="PackedScene" uid="uid://ccwpv05fjn3mr" path="res://scenes/card/card.tscn" id="2_u3j8v"]
+[ext_resource type="Texture2D" uid="uid://k0wvv4kovuns" path="res://scenes/deck/cards/H1.png" id="3_vio2e"]
+[ext_resource type="Texture2D" uid="uid://rgap7u6aersx" path="res://scenes/deck/cards/H2.png" id="4_8fl2l"]
+[ext_resource type="Texture2D" uid="uid://dv7rnutv4ylr8" path="res://scenes/deck/cards/H3.png" id="5_erplf"]
+[ext_resource type="Texture2D" uid="uid://duoklqw8fy6jf" path="res://scenes/deck/cards/H4.png" id="6_bx8xh"]
+[ext_resource type="Texture2D" uid="uid://coduyfbax637m" path="res://scenes/deck/cards/H5.png" id="7_hoo7u"]
+[ext_resource type="Texture2D" uid="uid://e5jrti2icuiy" path="res://scenes/deck/cards/H6.png" id="8_p2x0p"]
+[ext_resource type="Texture2D" uid="uid://ciri8hw0p43g8" path="res://scenes/deck/cards/H7.png" id="9_15x7j"]
+[ext_resource type="Texture2D" uid="uid://dpx8uur0a1e6y" path="res://scenes/deck/cards/H8.png" id="10_iou26"]
+
+[node name="Deck" type="Control" unique_id=1207343745]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_awifi")
+card_scene = ExtResource("2_u3j8v")
+card_textures = Array[Texture2D]([ExtResource("3_vio2e"), ExtResource("4_8fl2l"), ExtResource("5_erplf"), ExtResource("6_bx8xh"), ExtResource("7_hoo7u"), ExtResource("8_p2x0p"), ExtResource("9_15x7j"), ExtResource("10_iou26")])
+
+[node name="TopCard" type="TextureRect" parent="." unique_id=2050643308]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uw8ea")

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ccwpv05fjn3mr"]
+
+[ext_resource type="Texture2D" uid="uid://dsd78ao4mqkyp" path="res://scenes/deck/cards/00.png" id="1_qnn7r"]
+[ext_resource type="Script" uid="uid://4x1sjthpgrfg" path="res://scenes/card/card.gd" id="2_imta7"]
+
+[node name="Card" type="TextureRect" unique_id=1767337626]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qnn7r")
+script = ExtResource("2_imta7")
