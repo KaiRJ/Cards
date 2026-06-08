@@ -1,5 +1,4 @@
 * initial research
-** multiplayer
 ** DONE free card assets
 CLOSED: [2026-05-23 Sat 13:23]
 ** git games
@@ -11,22 +10,54 @@ CLOSED: [2026-05-23 Sat 13:45]
 ** DONE create deck scene
 CLOSED: [2026-05-23 Sat 14:41]
 - holds all the assets and cards and can "send" cards to players
-** create player scene
+** DONE create player scene
+CLOSED: [2026-05-28 Thu 22:33]
 - holds the card scenes
+  - can just be held in playerhand?
 - has an identifier for the player eg. 1,2,3,4
-** create simple deal configuration
-- i like the idea of this being a resource i can just send set on the deck
-- be able to set which side of screen to deal to?
-- via. signal?
-** multiplayer
+** DONE update doc strings
+CLOSED: [2026-05-28 Thu 22:36]
+- before they pile up
+** DONE create simple deal configuration
+CLOSED: [2026-05-28 Thu 23:15]
+- hit a button (child of player) which calls a "deal" function on the deck
+  - that pops and returns N cards and adds them to the PlayersHand
+    - make a note eventually ill need to add animations for this
+** DONE update names of all cards and add them to the deck resource
+CLOSED: [2026-05-28 Thu 23:26]
 ** push to github
 * multiplayer
+** read docs and watch videos again
+- also have some saved on reddit
 ** two players
+*** plan out steps
 ** four players
+- could hold off on this? or maybe best to get working now
 * golf
+** deal configuration
+- deal a 3x3 grid in front of player
+
+- i like the idea of this being a resource i can just send set on the deck
+  - could have a different resource for each game?
+  - resource for the rules?
+** plan how to implement this game
+** ability to select cards
+- had button and signal to card scene
+** add jokers
+* card animations
 - a good animation where the card is revealed
   - like the back "dissolves" after its been placed or before
   - this could also work for setting the game up
+** angle cards on hoover
+- just push card up
+- look into godot 4.7
+  - [[file:~/Documents/Org/Agenda/gamedev/godot.org::*UI][UI]]
+** send card from deck to hand
+- this will also be called when i setup game
+** on selection
+** when hoover over cards in play
+- just shake card? and make bigger?
+** collect cards
 * sueca
 ** deal cards
 - see 3rd example here
@@ -34,9 +65,22 @@ CLOSED: [2026-05-23 Sat 14:41]
   see downloads for source code
 ** hide cards
 - show and hide cards with tab/space
+** hints
+- like putting cards down a certain way
 * sandbox
 - can deal, and set cards where ever you like
 - one person deals
+** place cards
+** turn cards over
+** pick up cards
+- default is can't see them
+- can hit space button to show them but other players can see you looked
+** draw a box to select multiple cards
+- can pick these up
+- form a deck
+- add to another deck
+** shuffle a deck
+** highlight cards
 * final touches
 - could release this on twitch
 - add godot splash screen and crt turn on
@@ -49,3 +93,6 @@ CLOSED: [2026-05-23 Sat 14:41]
 https://drawsgood.itch.io/8bit-deck-card-assets
   - make super simple ones for now and only buy at the end
   - could also just copy them and try change the style to be lizards or something
+
+** overlap cards
+- [[https://www.youtube.com/watch?v=aagPe4dvM2M][How I easily animate UI in my game - MrElipteach]]

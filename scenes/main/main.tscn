@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dwyox2qnspqmo"]
+
+[ext_resource type="PackedScene" uid="uid://c0te8034o5i1q" path="res://scenes/deck/deck.tscn" id="1_iuonh"]
+[ext_resource type="Script" uid="uid://bm2xttxgtt1p5" path="res://scenes/main/main.gd" id="1_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://dsdbkkhg717f4" path="res://scenes/player/player.tscn" id="2_k2fmo"]
+
+[node name="main" type="Control" unique_id=1777900211]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k2fmo")
+
+[node name="Player" parent="." unique_id=458584222 instance=ExtResource("2_k2fmo")]
+layout_mode = 1
+
+[node name="Deck" parent="." unique_id=1207343745 instance=ExtResource("1_iuonh")]
+layout_mode = 1

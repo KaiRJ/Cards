@@ -23,15 +23,24 @@ var value: int:
 	get: return value
 
 
-## TODO
+## Sets the cards textures and it's value and suit based on this texture.
 func setup_card(front_texture: Texture2D, back_texture: Texture2D) -> void:
 	# set the textures
 	front = front_texture
 	back = back_texture
 
-	## get the card data
+	# get the card data
 	suit = _get_card_suit()
 	value = _get_card_value()
+
+	# card starts off face up
+	texture = front
+
+
+## Turns the card over to it's other side
+func flip_card() -> void:
+	if texture == front:
+		texture = back
 
 
 ## Return the suit of this card.
