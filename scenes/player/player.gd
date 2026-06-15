@@ -1,5 +1,5 @@
 class_name Player
-extends Control
+extends CanvasLayer
 ## TODO
 
 ## The unique identifier for a specific player.
@@ -10,7 +10,7 @@ extends Control
 
 func _ready() -> void:
 	# remove the placeholder cards
-	for card in hand.get_children():
+	for card: Card in hand.get_children():
 		card.queue_free()
 
 

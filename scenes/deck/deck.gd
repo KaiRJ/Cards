@@ -1,5 +1,5 @@
 class_name Deck
-extends Control
+extends CanvasLayer
 ## This scene contains all the functionality of a deck of cards.
 
 signal deal(card: Card)
@@ -23,7 +23,7 @@ func _ready() -> void:
 
 ## Create a new deck of cards
 func create_deck() -> void:
-	for face in card_textures:
+	for face: Texture2D in card_textures:
 		var card: Card = card_scene.instantiate()
 		card.setup_card(face, top_card.texture)
 		deck.push_back(card)

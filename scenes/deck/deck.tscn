@@ -56,19 +56,12 @@
 [ext_resource type="Texture2D" uid="uid://bh34iqtxxa61h" path="res://scenes/deck/cards/SQ.png" id="53_oexqf"]
 [ext_resource type="Texture2D" uid="uid://c48irn48o6bbw" path="res://scenes/deck/cards/ST.png" id="54_fpd22"]
 
-[node name="Deck" type="Control" unique_id=1207343745]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Deck" type="CanvasLayer" unique_id=368494132]
 script = ExtResource("1_awifi")
 card_scene = ExtResource("2_u3j8v")
 card_textures = Array[Texture2D]([ExtResource("3_ruec2"), ExtResource("4_2pmft"), ExtResource("5_p2sig"), ExtResource("6_os6r0"), ExtResource("7_idksm"), ExtResource("8_unitv"), ExtResource("9_dfrnc"), ExtResource("10_b0ib8"), ExtResource("11_d5bmx"), ExtResource("12_037um"), ExtResource("13_j7euf"), ExtResource("14_4ey0m"), ExtResource("15_qgn8m"), ExtResource("16_ryarl"), ExtResource("17_wvkir"), ExtResource("18_v44jt"), ExtResource("19_o5dao"), ExtResource("20_0j1gg"), ExtResource("21_eamm2"), ExtResource("22_ual48"), ExtResource("23_ju7tc"), ExtResource("24_f5h7g"), ExtResource("25_u5whc"), ExtResource("26_hlqxl"), ExtResource("27_sr647"), ExtResource("28_s15eb"), ExtResource("3_vio2e"), ExtResource("4_8fl2l"), ExtResource("5_erplf"), ExtResource("6_bx8xh"), ExtResource("7_hoo7u"), ExtResource("8_p2x0p"), ExtResource("9_15x7j"), ExtResource("10_iou26"), ExtResource("37_t1n1v"), ExtResource("38_11rfm"), ExtResource("39_yf0c5"), ExtResource("40_k2y50"), ExtResource("41_5cojh"), ExtResource("42_qlrij"), ExtResource("43_5swvi"), ExtResource("44_2bwgo"), ExtResource("45_lq82b"), ExtResource("46_cxo8s"), ExtResource("47_lxbvg"), ExtResource("48_4m0x5"), ExtResource("49_oent3"), ExtResource("50_km72p"), ExtResource("51_3l56f"), ExtResource("52_k8upk"), ExtResource("53_oexqf"), ExtResource("54_fpd22")])
 
 [node name="TopCard" type="TextureRect" parent="." unique_id=2050643308]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
