@@ -2,9 +2,6 @@ class_name Player
 extends CanvasLayer
 ## TODO
 
-## The unique identifier for a specific player.
-@export var player_id: int
-
 @onready var hand: HBoxContainer = $Hand
 
 
