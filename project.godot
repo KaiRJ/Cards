@@ -15,6 +15,10 @@ run/main_scene="uid://dwyox2qnspqmo"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Multiplayer="*uid://cyvab0yxj1onn"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1
