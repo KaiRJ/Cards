@@ -2,7 +2,8 @@ class_name Deck
 extends CanvasLayer
 ## This scene contains all the functionality of a deck of cards.
 
-signal deal(card: Card)
+## Signals for dealing cards to each player.
+signal deal(player_id: int, card: Card)
 
 ## The card scene
 @export var card_scene: PackedScene
@@ -15,6 +16,7 @@ var deck: Array[Card]
 
 ## The texture used for the top of the deck and the back of all cards.
 @onready var top_card: TextureRect = $TopCard
+
 
 func _ready() -> void:
 	create_deck()
@@ -32,10 +34,18 @@ func create_deck() -> void:
 ## Shuffle the current deck.
 func shuffle_deck() -> void:
 	deck.shuffle()
+	
+
+#@rpc("any_peer")
+#func deal_cards(player_id: int, card: Card) -> void:
+	##players[player_id].emit(card)
+	#pass	
 
 
 func _on_button_pressed() -> void:
 	if deck.is_empty():
 		return
-
-	deal.emit(deck.pop_front())
+		
+	var id: int = multiplayer.get_unique_id()
+	var card: Card = deck.pop_front()
+	deal.emit(id, card)

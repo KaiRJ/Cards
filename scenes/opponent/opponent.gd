@@ -2,6 +2,9 @@ class_name Opponent
 extends Control
 ## TODO 
 
+## ID for multiplyer actions.
+var opponent_id: int = 0
+
 @onready var hand: HBoxContainer = %Hand
 
 
@@ -12,6 +15,10 @@ func _ready() -> void:
 		pass
 
 
-func _on_dealt_card(card: Card) -> void:
+## Only accepts cards intented for this opponent.
+func _on_dealt_card(id: int, card: Card) -> void:
+	if id != opponent_id:
+		return 
 	hand.add_child(card)
 	card.flip_card() # always want these cards face down
+	

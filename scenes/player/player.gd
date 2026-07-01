@@ -2,6 +2,9 @@ class_name Player
 extends CanvasLayer
 ## TODO
 
+## ID for multiplyer actions.
+var player_id: int = 0
+
 @onready var hand: HBoxContainer = $Hand
 
 
@@ -11,5 +14,8 @@ func _ready() -> void:
 		card.queue_free()
 
 
-func _on_dealt_card(card: Card) -> void:
+## Only accepts cards intented for this player.
+func _on_dealt_card(id: int, card: Card) -> void:
+	if id != player_id:
+		return 
 	hand.add_child(card)
