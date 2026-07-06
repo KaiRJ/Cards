@@ -20,7 +20,6 @@ var deck: Array[Card]
 
 func _ready() -> void:
 	create_deck()
-	shuffle_deck()
 
 
 ## Create a new deck of cards.
@@ -33,8 +32,14 @@ func create_deck() -> void:
 
 ## Shuffle the current deck.
 func shuffle_deck() -> void:
-	# TODO Set seed of shuffle and call when player connects.
-	deck.shuffle()
+	print("seed:" + str(Multiplayer.rng.seed))
+	for i: int in range(deck.size() - 2):
+		# Pick a random index from i to the end of the array
+		var j: int = Multiplayer.rng.randi_range(i, deck.size() - 1)
+		# Swap elements at i and j
+		var temp: Card = deck[i]
+		deck[i] = deck[j]
+		deck[j] = temp
 	
 
 ## Emits the deal card signal for a specific player.

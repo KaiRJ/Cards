@@ -6,7 +6,7 @@ extends Control
 @export var player_scene: PackedScene
 @export var opponent_scene: PackedScene
 
-var deck: Deck 
+var deck: Deck
 
 @onready var host_button: Button = $HostButton
 @onready var join_button: Button = $JoinButton
@@ -19,6 +19,7 @@ func _ready() -> void:
 
 	_setup_deck()
 	deck.hide()
+
 
 func _on_host_button_pressed() -> void:
 	if (Multiplayer.create_game() != OK):
@@ -38,6 +39,7 @@ func _on_join_button_pressed() -> void:
 
 func _on_player_connected(id: int) -> void:
 	_setup_opponent(id)
+	deck.shuffle_deck()
 
 
 ## Disable and hide all buttons.
