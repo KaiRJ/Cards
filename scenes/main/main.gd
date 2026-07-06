@@ -6,38 +6,38 @@ extends Control
 @export var player_scene: PackedScene
 @export var opponent_scene: PackedScene
 
+var deck: Deck 
+
 @onready var host_button: Button = $HostButton
 @onready var join_button: Button = $JoinButton
+
 
 func _ready() -> void:
 	var _host: int = host_button.pressed.connect(_on_host_button_pressed)
 	var _join: int = join_button.pressed.connect(_on_join_button_pressed)
+	var _connected: int = Multiplayer.player_connected.connect(_on_player_connected)
 
+	_setup_deck()
+	deck.hide()
 
 func _on_host_button_pressed() -> void:
 	if (Multiplayer.create_game() != OK):
 		return
 	_disable_buttons()
-	
-	var _connected: int = multiplayer.peer_connected.connect(_on_peer_connected)	
-	
-	var deck: Deck = _setup_deck()
-	_setup_player(deck)
+	deck.show()
+	_setup_player()
 
 
 func _on_join_button_pressed() -> void:
 	if (Multiplayer.join_game() != OK):
-		return	
+		return
 	_disable_buttons()
-	
-	var deck: Deck = _setup_deck()
-	_setup_player(deck)
-	_setup_opponent()
-	
+	deck.show()
+	_setup_player()
 
-func _on_peer_connected(_peer_id: int) -> void:
-	print("Player joined!")
-	_setup_opponent()
+
+func _on_player_connected(id: int) -> void:
+	_setup_opponent(id)
 
 
 ## Disable and hide all buttons.
@@ -50,19 +50,17 @@ func _disable_buttons() -> void:
 
 
 ## Set up the game deck and add it to the scene.
-func _setup_deck() -> Deck:
-	var deck: Deck = deck_scene.instantiate()
+func _setup_deck() -> void:
+	deck = deck_scene.instantiate()
 	add_child(deck)
-	return deck
 
 
 ## Set up the player and add them to the scene.
-func _setup_player(deck: Deck) -> void:
+func _setup_player() -> void:
 	var player: Player = player_scene.instantiate()
 	
 	var id: int = multiplayer.get_unique_id()
 	player.player_id = id
-	print(id)
 	
 	var _delt: int = deck.deal.connect(player._on_dealt_card)
 	
@@ -70,6 +68,10 @@ func _setup_player(deck: Deck) -> void:
 
 
 ## Set up and add the opponent to the scene.
-func _setup_opponent() -> void:
+func _setup_opponent(id: int) -> void:
 	var opponent: Opponent = opponent_scene.instantiate()
+	opponent.opponent_id = id
+	
+	var _delt: int = deck.deal.connect(opponent._on_dealt_card)
+	
 	add_child(opponent)

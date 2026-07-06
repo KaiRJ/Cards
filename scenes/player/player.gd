@@ -16,6 +16,7 @@ func _ready() -> void:
 
 ## Only accepts cards intented for this player.
 func _on_dealt_card(id: int, card: Card) -> void:
+	print("dealing to " + str(id))
 	if id != player_id:
 		return 
 	hand.add_child(card)

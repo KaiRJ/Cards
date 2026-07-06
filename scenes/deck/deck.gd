@@ -23,7 +23,7 @@ func _ready() -> void:
 	shuffle_deck()
 
 
-## Create a new deck of cards
+## Create a new deck of cards.
 func create_deck() -> void:
 	for face: Texture2D in card_textures:
 		var card: Card = card_scene.instantiate()
@@ -33,19 +33,22 @@ func create_deck() -> void:
 
 ## Shuffle the current deck.
 func shuffle_deck() -> void:
+	# TODO Set seed of shuffle and call when player connects.
 	deck.shuffle()
 	
 
-#@rpc("any_peer")
-#func deal_cards(player_id: int, card: Card) -> void:
-	##players[player_id].emit(card)
-	#pass	
+## Emits the deal card signal for a specific player.
+@rpc("any_peer")
+func deal_card(player_id: int) -> void:
+	var card: Card = deck.pop_front()
+	deal.emit(player_id, card)
 
 
 func _on_button_pressed() -> void:
 	if deck.is_empty():
 		return
 		
-	var id: int = multiplayer.get_unique_id()
-	var card: Card = deck.pop_front()
-	deal.emit(id, card)
+	# emit deal card signal on all peers for a specific player
+	var player_id: int = multiplayer.get_unique_id()
+	deal_card(player_id)
+	deal_card.rpc(player_id)
