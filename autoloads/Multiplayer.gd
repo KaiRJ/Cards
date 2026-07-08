@@ -5,8 +5,9 @@ signal player_connected(peer_id: int)
 
 const PORT: int = 7777
 const DEFAULT_SERVER_IP: String = "localhost"
-const MAX_CONNECTIONS: int = 1
+const MAX_CONNECTIONS: int = 3 # host doesn't count as a connection
 
+var players_loaded = 0
 var rng: RandomNumberGenerator
 
 
@@ -55,8 +56,8 @@ func _on_peer_connected(id: int) -> void:
 @rpc("any_peer", "reliable")
 func _register_player() -> void:
 	var new_player_id: int = multiplayer.get_remote_sender_id()
-	print("Registering player: " + str(new_player_id))
 	player_connected.emit(new_player_id)
+	print("Registering player: " + str(new_player_id))
 
 
 @rpc("any_peer", "reliable")

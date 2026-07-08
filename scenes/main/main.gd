@@ -4,7 +4,7 @@ extends Control
 
 @export var deck_scene: PackedScene
 @export var player_scene: PackedScene
-@export var opponent_scene: PackedScene
+@export var opponent_scenes: Array[PackedScene]
 
 var deck: Deck
 
@@ -38,7 +38,8 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_player_connected(id: int) -> void:
-	_setup_opponent(id)
+	var scene: PackedScene = opponent_scenes.pop_front()
+	_setup_opponent(id, scene)
 	deck.shuffle_deck()
 
 
@@ -70,8 +71,8 @@ func _setup_player() -> void:
 
 
 ## Set up and add the opponent to the scene.
-func _setup_opponent(id: int) -> void:
-	var opponent: Opponent = opponent_scene.instantiate()
+func _setup_opponent(id: int, scene: PackedScene) -> void:
+	var opponent: Opponent = scene.instantiate()
 	opponent.opponent_id = id
 	
 	var _delt: int = deck.deal.connect(opponent._on_dealt_card)
