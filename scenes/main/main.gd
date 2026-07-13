@@ -8,73 +8,72 @@ extends Control
 
 var deck: Deck
 
+@onready var multiplayer_manager: MultiplayerManager = $MultiplayerManager
 @onready var host_button: Button = $HostButton
 @onready var join_button: Button = $JoinButton
+@onready var start_button: Button = $StartButton
 
 
 func _ready() -> void:
-	var _host: int = host_button.pressed.connect(_on_host_button_pressed)
-	var _join: int = join_button.pressed.connect(_on_join_button_pressed)
-	var _connected: int = Multiplayer.player_connected.connect(_on_player_connected)
-
-	_setup_deck()
+	host_button.pressed.connect(_on_host_button_pressed)
+	join_button.pressed.connect(_on_join_button_pressed)
+	start_button.pressed.connect(_on_start_button_pressed)
+	start_button.hide()
+	
+	deck = deck_scene.instantiate()
+	add_child(deck)
 	deck.hide()
 
 
-func _on_host_button_pressed() -> void:
-	if (Multiplayer.create_game() != OK):
-		return
-	_disable_buttons()
+## Set up a shuffled game deck and add it to the scene.
+@rpc("any_peer", "call_local")
+func setup_deck(new_seed: int) -> void:
+	deck.shuffle_deck(new_seed)
 	deck.show()
-	_setup_player()
-
-
-func _on_join_button_pressed() -> void:
-	if (Multiplayer.join_game() != OK):
-		return
-	_disable_buttons()
-	deck.show()
-	_setup_player()
-
-
-func _on_player_connected(id: int) -> void:
-	var scene: PackedScene = opponent_scenes.pop_front()
-	_setup_opponent(id, scene)
-	deck.shuffle_deck()
-
-
-## Disable and hide all buttons.
-func _disable_buttons() -> void:
-	host_button.disabled = true
-	host_button.visible = false 
-	
-	join_button.disabled = true
-	join_button.visible = false
-
-
-## Set up the game deck and add it to the scene.
-func _setup_deck() -> void:
-	deck = deck_scene.instantiate()
-	add_child(deck)
 
 
 ## Set up the player and add them to the scene.
-func _setup_player() -> void:
+@rpc("any_peer", "call_local")
+func setup_player() -> void:
 	var player: Player = player_scene.instantiate()
-	
-	var id: int = multiplayer.get_unique_id()
-	player.player_id = id
-	
-	var _delt: int = deck.deal.connect(player._on_dealt_card)
-	
+	deck.deal.connect(player._on_dealt_card)
 	add_child(player)
 
 
 ## Set up and add the opponent to the scene.
-func _setup_opponent(id: int, scene: PackedScene) -> void:
-	var opponent: Opponent = scene.instantiate()
+@rpc("any_peer", "call_local")
+func setup_opponent(id: int) -> void:
+	var opponent: Opponent = opponent_scenes.pop_front().instantiate()
+	deck.deal.connect(opponent._on_dealt_card)
 	opponent.opponent_id = id
-	
-	var _delt: int = deck.deal.connect(opponent._on_dealt_card)
-	
 	add_child(opponent)
+
+
+func _on_host_button_pressed() -> void:
+	var error: Error = multiplayer_manager.create_game()
+	if (error != OK):
+		push_error("Cannot host: " + str(error))
+		return
+		
+	host_button.hide()
+	join_button.hide()
+	start_button.show()
+
+
+func _on_join_button_pressed() -> void:
+	var error: Error = multiplayer_manager.join_game()
+	if (error != OK):
+		push_error("Cannot join: " + str(error))
+		return
+
+	host_button.hide()
+	join_button.hide()
+
+
+func _on_start_button_pressed() -> void:
+		randomize()
+		setup_deck.rpc(randi())
+		setup_player.rpc()
+		
+		for id: int in GameManager.players:
+			setup_opponent.rpc(id)

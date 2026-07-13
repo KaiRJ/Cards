@@ -9,6 +9,8 @@ var player_id: int = 0
 
 
 func _ready() -> void:
+	player_id = multiplayer.get_unique_id()
+	
 	# remove the placeholder cards
 	for card: Card in hand.get_children():
 		card.queue_free()
