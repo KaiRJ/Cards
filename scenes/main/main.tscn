@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://dwyox2qnspqmo"]
 
-[ext_resource type="PackedScene" uid="uid://c0te8034o5i1q" path="res://scenes/deck/deck.tscn" id="1_iuonh"]
-[ext_resource type="Script" uid="uid://bm2xttxgtt1p5" path="res://scenes/main/main.gd" id="1_k2fmo"]
-[ext_resource type="PackedScene" uid="uid://dsdbkkhg717f4" path="res://scenes/player/player.tscn" id="2_k2fmo"]
-[ext_resource type="PackedScene" uid="uid://cto64aaqdd6s" path="res://scenes/opponents/top_opponent.tscn" id="4_l3cfh"]
-[ext_resource type="PackedScene" uid="uid://ca7uh7r2doxpl" path="res://scenes/opponents/right_opponent.tscn" id="5_ow5a4"]
-[ext_resource type="PackedScene" uid="uid://cre16r1g4uugb" path="res://scenes/opponents/left_opponent.tscn" id="6_hujxm"]
-[ext_resource type="PackedScene" uid="uid://bvinykg7yajou" path="res://managers/multiplayer_manager/multiplayer_manager.tscn" id="7_hujxm"]
+[ext_resource type="PackedScene" uid="uid://bta7rsgqpalt" path="res://scenes/multiplayer_lobby/multiplayer_lobby.tscn" id="7_hujxm"]
 
 [node name="main" type="Control" unique_id=1777900211]
 layout_mode = 3
@@ -16,40 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_k2fmo")
-deck_scene = ExtResource("1_iuonh")
-player_scene = ExtResource("2_k2fmo")
-opponent_scenes = Array[PackedScene]([ExtResource("4_l3cfh"), ExtResource("5_ow5a4"), ExtResource("6_hujxm")])
 
-[node name="MultiplayerManager" parent="." unique_id=1430369537 instance=ExtResource("7_hujxm")]
-
-[node name="HostButton" type="Button" parent="." unique_id=664841979]
-layout_mode = 0
-offset_left = 471.0
-offset_top = 305.0
-offset_right = 515.0
-offset_bottom = 336.0
-text = "Host"
-
-[node name="JoinButton" type="Button" parent="." unique_id=1727696596]
-layout_mode = 0
-offset_left = 643.0
-offset_top = 302.0
-offset_right = 681.0
-offset_bottom = 333.0
-text = "Join"
-
-[node name="StartButton" type="Button" parent="." unique_id=1301569563]
+[node name="MultplayerLobby" parent="." unique_id=651730460 instance=ExtResource("7_hujxm")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -15.5
-offset_right = 23.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Start"

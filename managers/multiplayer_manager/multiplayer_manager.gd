@@ -1,6 +1,7 @@
 class_name MultiplayerManager
 extends Node
-## TODO
+## Manages the hosting and joining of players in the game.
+##
 
 @export var PORT: int = 7777
 @export var DEFAULT_SERVER_IP: String = "localhost"
@@ -14,7 +15,7 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_on_connection_failed)
 
 
-## TODO
+## Create the game server, and register player using unique ID.
 func create_game() -> Error:
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	var error: Error = peer.create_server(PORT, MAX_CONNECTIONS)
@@ -22,11 +23,10 @@ func create_game() -> Error:
 		return error
 		
 	multiplayer.multiplayer_peer = peer
-	_register_player(multiplayer.get_unique_id(), "")
 	return OK
 
 
-## TODO
+## Join a game server, and register player using unique ID.
 func join_game(address: String = "") -> Error:
 	if address.is_empty():
 		address = DEFAULT_SERVER_IP
@@ -37,20 +37,17 @@ func join_game(address: String = "") -> Error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	_register_player(multiplayer.get_unique_id(), "")
 	return OK
 
 
-# TODO
-@rpc("any_peer", "reliable")
-func _register_player(player_id: int, player_name: String) -> void:
-	GameManager.players[player_id] = player_name
-
-
-## Called on the server and clients when a peer connects, 
-## send new peer data to previously connected peers.
+## Called on the server and all clients when a new peer connects.
+## Send new peer data to previously connected peers. New peer also gets previous peer data.
 func _on_peer_connected(id: int) -> void:
-	_register_player.rpc_id(id, multiplayer.get_unique_id(), "")
+	GameManager.set_player.rpc_id(id, multiplayer.get_unique_id(), GameManager.players[multiplayer.get_unique_id()])
+	
+	if multiplayer.get_unique_id():
+		GameManager.set_game_seed.rpc_id(id, GameManager.game_seed)
+		
 	print("Peer Connected: " + str(id))
 
 
@@ -60,7 +57,7 @@ func _on_peer_disconnected(id: int) -> void:
 
 
 ## Called only from clients.
-func _on_connected_to_server(_id: int) -> void:
+func _on_connected_to_server() -> void:
 	pass
 
 

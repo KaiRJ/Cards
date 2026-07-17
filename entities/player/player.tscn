@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dsdbkkhg717f4"]
+
+[ext_resource type="Script" uid="uid://dfewiidx1asm3" path="res://entities/player/player.gd" id="1_1kbk7"]
+[ext_resource type="PackedScene" uid="uid://ccwpv05fjn3mr" path="res://entities/card/card.tscn" id="1_cyojo"]
+
+[node name="Player" type="CanvasLayer" unique_id=556265765]
+script = ExtResource("1_1kbk7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=592321283]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -80.0
+offset_right = 148.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=1700212589]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player"
+horizontal_alignment = 1
+
+[node name="Hand" type="HBoxContainer" parent="VBoxContainer" unique_id=491299403]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Card" parent="VBoxContainer/Hand" unique_id=1767337626 instance=ExtResource("1_cyojo")]
+layout_mode = 2
+
+[node name="Card2" parent="VBoxContainer/Hand" unique_id=452014793 instance=ExtResource("1_cyojo")]
+layout_mode = 2
+
+[node name="Card3" parent="VBoxContainer/Hand" unique_id=971587274 instance=ExtResource("1_cyojo")]
+layout_mode = 2
+
+[node name="Card4" parent="VBoxContainer/Hand" unique_id=273859570 instance=ExtResource("1_cyojo")]
+layout_mode = 2
+
+[node name="Card5" parent="VBoxContainer/Hand" unique_id=859543269 instance=ExtResource("1_cyojo")]
+layout_mode = 2

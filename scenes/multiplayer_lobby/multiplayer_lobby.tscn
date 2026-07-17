@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bta7rsgqpalt"]
+
+[ext_resource type="Script" uid="uid://bmslp4mo25htp" path="res://scenes/multiplayer_lobby/multiplayer_lobby.gd" id="1_1ig7j"]
+[ext_resource type="PackedScene" uid="uid://q5bk4pws06q0" path="res://scenes/golf/golf.tscn" id="2_ea4b5"]
+[ext_resource type="PackedScene" uid="uid://bvinykg7yajou" path="res://managers/multiplayer_manager/multiplayer_manager.tscn" id="2_xk0re"]
+
+[node name="MultplayerLobby" type="Control" unique_id=651730460]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ig7j")
+game_scene = ExtResource("2_ea4b5")
+
+[node name="MultiplayerManager" parent="." unique_id=1430369537 instance=ExtResource("2_xk0re")]
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=812351598]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=94322679]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=2016369271]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=160370701]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Game lobby"
+horizontal_alignment = 1
+
+[node name="NameEntry" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1174165931]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter name here"
+alignment = 1
+
+[node name="ServerContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1182411228]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ServerContainer" unique_id=1298522899]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ServerContainer" unique_id=1919258968]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="StartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1364130335]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Start"

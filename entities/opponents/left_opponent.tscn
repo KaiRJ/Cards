@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cre16r1g4uugb"]
+
+[ext_resource type="PackedScene" uid="uid://ccwpv05fjn3mr" path="res://entities/card/card.tscn" id="1_2370l"]
+[ext_resource type="Script" uid="uid://bl5r4162bxhde" path="res://entities/opponents/opponent.gd" id="1_esugg"]
+
+[node name="LeftOpponent" type="Control" unique_id=844866256]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("1_esugg")
+
+[node name="RotatedContainer" type="Control" parent="." unique_id=1152857126]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+rotation = -1.5707964
+
+[node name="Hand" type="HBoxContainer" parent="RotatedContainer" unique_id=613340040]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 128.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="Card" parent="RotatedContainer/Hand" unique_id=1767337626 instance=ExtResource("1_2370l")]
+layout_mode = 2
+
+[node name="Card2" parent="RotatedContainer/Hand" unique_id=1238090089 instance=ExtResource("1_2370l")]
+layout_mode = 2
+
+[node name="Card3" parent="RotatedContainer/Hand" unique_id=1003800483 instance=ExtResource("1_2370l")]
+layout_mode = 2
+
+[node name="Card4" parent="RotatedContainer/Hand" unique_id=43788489 instance=ExtResource("1_2370l")]
+layout_mode = 2
+
+[node name="Card5" parent="RotatedContainer/Hand" unique_id=1697842077 instance=ExtResource("1_2370l")]
+layout_mode = 2

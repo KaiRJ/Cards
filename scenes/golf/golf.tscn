@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://q5bk4pws06q0"]
+
+[ext_resource type="Script" uid="uid://b15k3o1ems74o" path="res://scenes/golf/golf.gd" id="1_wwokj"]
+[ext_resource type="PackedScene" uid="uid://c0te8034o5i1q" path="res://entities/deck/deck.tscn" id="2_eb0sf"]
+[ext_resource type="PackedScene" uid="uid://cto64aaqdd6s" path="res://entities/opponents/top_opponent.tscn" id="2_s8xl3"]
+[ext_resource type="PackedScene" uid="uid://dsdbkkhg717f4" path="res://entities/player/player.tscn" id="3_3yn0j"]
+[ext_resource type="PackedScene" uid="uid://ca7uh7r2doxpl" path="res://entities/opponents/right_opponent.tscn" id="3_otcm6"]
+[ext_resource type="PackedScene" uid="uid://cre16r1g4uugb" path="res://entities/opponents/left_opponent.tscn" id="4_c72pn"]
+
+[node name="Golf" type="Control" unique_id=94748869]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wwokj")
+opponent_scenes = Array[PackedScene]([ExtResource("2_s8xl3"), ExtResource("3_otcm6"), ExtResource("4_c72pn")])
+
+[node name="Deck" parent="." unique_id=368494132 instance=ExtResource("2_eb0sf")]
+unique_name_in_owner = true
+
+[node name="Player" parent="." unique_id=556265765 instance=ExtResource("3_3yn0j")]
+unique_name_in_owner = true
