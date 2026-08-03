@@ -10,7 +10,8 @@ var players: Dictionary[int, String] = {}
 
 
 @rpc("any_peer", "reliable")
-func set_player(player_id: int, player_name: String) -> void:
+func register_player(player_id: int, player_name: String) -> void:
+	print("(" + str(multiplayer.get_unique_id()) + ") Registering player: " + str(player_id))
 	GameManager.players[player_id] = player_name
 
 

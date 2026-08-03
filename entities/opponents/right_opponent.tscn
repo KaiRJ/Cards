@@ -15,32 +15,47 @@ grow_vertical = 2
 script = ExtResource("1_ac30m")
 
 [node name="RotatedContainer" type="Control" parent="." unique_id=1404540400]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
 rotation = 1.5707964
 
-[node name="Hand" type="HBoxContainer" parent="RotatedContainer" unique_id=796837032]
-unique_name_in_owner = true
-layout_mode = 0
+[node name="HBoxContainer" type="VBoxContainer" parent="RotatedContainer" unique_id=1686497454]
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -168.0
-offset_right = 128.0
-offset_bottom = 80.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="Card" parent="RotatedContainer/Hand" unique_id=1767337626 instance=ExtResource("1_b3sm7")]
+[node name="Hand" type="HBoxContainer" parent="RotatedContainer/HBoxContainer" unique_id=796837032]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Card2" parent="RotatedContainer/Hand" unique_id=1930272875 instance=ExtResource("1_b3sm7")]
+[node name="Card" parent="RotatedContainer/HBoxContainer/Hand" unique_id=1767337626 instance=ExtResource("1_b3sm7")]
 layout_mode = 2
 
-[node name="Card3" parent="RotatedContainer/Hand" unique_id=807325392 instance=ExtResource("1_b3sm7")]
+[node name="Card2" parent="RotatedContainer/HBoxContainer/Hand" unique_id=1930272875 instance=ExtResource("1_b3sm7")]
 layout_mode = 2
 
-[node name="Card4" parent="RotatedContainer/Hand" unique_id=1911276664 instance=ExtResource("1_b3sm7")]
+[node name="Card3" parent="RotatedContainer/HBoxContainer/Hand" unique_id=807325392 instance=ExtResource("1_b3sm7")]
 layout_mode = 2
 
-[node name="Card5" parent="RotatedContainer/Hand" unique_id=2055032768 instance=ExtResource("1_b3sm7")]
+[node name="Card4" parent="RotatedContainer/HBoxContainer/Hand" unique_id=1911276664 instance=ExtResource("1_b3sm7")]
 layout_mode = 2
+
+[node name="Card5" parent="RotatedContainer/HBoxContainer/Hand" unique_id=2055032768 instance=ExtResource("1_b3sm7")]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="RotatedContainer/HBoxContainer" unique_id=1871991911]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Opponent"
+horizontal_alignment = 1

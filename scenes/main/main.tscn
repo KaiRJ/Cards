@@ -11,5 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MultplayerLobby" parent="." unique_id=651730460 instance=ExtResource("7_hujxm")]
+[node name="MultplayerLobby" parent="." unique_id=651730460 node_paths=PackedStringArray("multiplayer_manager") instance=ExtResource("7_hujxm")]
 layout_mode = 1
+multiplayer_manager = NodePath("")

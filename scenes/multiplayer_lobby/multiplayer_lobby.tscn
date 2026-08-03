@@ -15,6 +15,7 @@ script = ExtResource("1_1ig7j")
 game_scene = ExtResource("2_ea4b5")
 
 [node name="MultiplayerManager" parent="." unique_id=1430369537 instance=ExtResource("2_xk0re")]
+unique_name_in_owner = true
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=812351598]
 layout_mode = 1

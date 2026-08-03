@@ -7,6 +7,8 @@ extends Node
 @export var DEFAULT_SERVER_IP: String = "localhost"
 @export var MAX_CONNECTIONS: int = 3 # host doesn't count as a connection
 
+var player_name: String = "Player"
+
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -20,9 +22,11 @@ func create_game() -> Error:
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	var error: Error = peer.create_server(PORT, MAX_CONNECTIONS)
 	if error:
+		push_error("Cannot host: " + str(error))
 		return error
-		
+
 	multiplayer.multiplayer_peer = peer
+	GameManager.register_player(multiplayer.get_unique_id(), player_name)
 	return OK
 
 
@@ -30,25 +34,28 @@ func create_game() -> Error:
 func join_game(address: String = "") -> Error:
 	if address.is_empty():
 		address = DEFAULT_SERVER_IP
-		
+
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	var error: Error = peer.create_client(address, PORT)
 	if error:
+		push_error("Cannot join: " + str(error))
 		return error
 
 	multiplayer.multiplayer_peer = peer
 	return OK
 
 
-## Called on the server and all clients when a new peer connects.
-## Send new peer data to previously connected peers. New peer also gets previous peer data.
-func _on_peer_connected(id: int) -> void:
-	GameManager.set_player.rpc_id(id, multiplayer.get_unique_id(), GameManager.players[multiplayer.get_unique_id()])
+## Send the game seed and register all players on each client.
+func send_game_data_to_clients() -> void:
+	GameManager.set_game_seed.rpc(GameManager.game_seed)
 	
-	if multiplayer.get_unique_id():
-		GameManager.set_game_seed.rpc_id(id, GameManager.game_seed)
-		
-	print("Peer Connected: " + str(id))
+	for id: int in GameManager.players:
+		GameManager.register_player.rpc(id, GameManager.players[id])
+
+
+## Called on the server and all clients when a new peer connects.
+func _on_peer_connected(_id: int) -> void:
+	pass
 
 
 ## Called on the server and clients when a peer disconnects.
@@ -56,9 +63,12 @@ func _on_peer_disconnected(id: int) -> void:
 	print("Peer Disconnected: " + str(id))
 
 
-## Called only from clients.
+## Called only from clients to register themselves with the server, once they
+## have successfully connected.
 func _on_connected_to_server() -> void:
-	pass
+	var player_id: int = multiplayer.get_unique_id()
+	GameManager.register_player.rpc_id(1, player_id, player_name)
+	print("Registing " + player_name + " with ID " + str(player_id))
 
 
 ## Called only from clients.

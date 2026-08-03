@@ -4,7 +4,7 @@ extends Control
 @export var opponent_scenes: Array[PackedScene]
 
 @onready var deck: Deck = %Deck
-@onready var player: Player = %Player
+@onready var player: Player = %Player # TODO rename to PlayerHand 
 
 
 func _ready() -> void:

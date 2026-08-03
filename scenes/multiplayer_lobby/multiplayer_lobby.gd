@@ -6,7 +6,7 @@ extends Control
 
 @export var game_scene: PackedScene
 
-@onready var multiplayer_manager: MultiplayerManager = $MultiplayerManager
+@onready var multiplayer_manager: MultiplayerManager = %MultiplayerManager
 @onready var host_button: Button = %HostButton
 @onready var join_button: Button = %JoinButton
 @onready var start_button: Button = %StartButton
@@ -21,7 +21,7 @@ func _ready() -> void:
 	start_button.hide()
 
 
-## Changes the scene to the corrrect game scene.
+## Changes the scene to the game scene.
 # TODO this could be in own scene and wrapped with scene transitions. I defs seen this in a youtube video
 @rpc("any_peer", "call_local")
 func change_scene() -> void:
@@ -29,12 +29,11 @@ func change_scene() -> void:
 
 
 func _on_host_button_pressed() -> void:
-	var error: Error = multiplayer_manager.create_game()
-	if (error != OK):
-		push_error("Cannot host: " + str(error))
+	multiplayer_manager.player_name = name_entry.text
+	
+	if multiplayer_manager.create_game() != OK:
 		return
-		
-	GameManager.set_player(multiplayer.get_unique_id(), name_entry.text)
+	
 	host_button.hide()
 	join_button.hide()
 	name_entry.hide()
@@ -43,12 +42,11 @@ func _on_host_button_pressed() -> void:
 
 
 func _on_join_button_pressed() -> void:
-	var error: Error = multiplayer_manager.join_game()
-	if (error != OK):
-		push_error("Cannot join: " + str(error))
+	multiplayer_manager.player_name = name_entry.text
+	
+	if multiplayer_manager.join_game() != OK:
 		return
 	
-	GameManager.set_player(multiplayer.get_unique_id(), name_entry.text)
 	host_button.hide()
 	join_button.hide()
 	name_entry.hide()
@@ -56,4 +54,5 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	multiplayer_manager.send_game_data_to_clients()
 	change_scene.rpc()
