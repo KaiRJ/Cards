@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c4k4xjwv1b4a3"]
+
+[ext_resource type="Script" uid="uid://5at3nauamkj" path="res://managers/opponent_spawn_manager/opponent_spawn_manager.gd" id="1_02n23"]
+
+[node name="OpponentSpawnManager" type="Node" unique_id=2110246588]
+script = ExtResource("1_02n23")
