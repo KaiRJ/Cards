@@ -13,13 +13,16 @@ func _ready() -> void:
 	deck.rng.seed = GameData.game_seed
 	deck.shuffle_deck()
 
+	# set up player
+	player.name_label.text = GameData.players[multiplayer.get_unique_id()]
+
 	# spawn all opponents
+	opponent_spawn_manager.players = GameData.players
 	opponent_spawn_manager.spawn_opponents()
 
 	# set up TurnManager and randomise starting player
 	turn_manager.new_current_player.connect(set_label) # label for testing
 	turn_manager.players = GameData.players.keys()
-	turn_manager.rng.seed = GameData.game_seed
 	turn_manager.randomise_turn()
 
 

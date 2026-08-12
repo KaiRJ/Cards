@@ -15,6 +15,7 @@ extends Control
 
 
 func _ready() -> void:
+	multiplayer_manager.player_joined.connect(_on_player_joined)
 	host_button.pressed.connect(_on_host_button_pressed)
 	join_button.pressed.connect(_on_join_button_pressed)
 	start_button.pressed.connect(_on_start_button_pressed)
@@ -28,11 +29,15 @@ func change_scene() -> void:
 	get_tree().change_scene_to_packed(game_scene)
 
 
-func _on_host_button_pressed() -> void:
-	multiplayer_manager.player_name = name_entry.text
+func _on_player_joined(id: int) -> void:
+	GameData.register_player.rpc_id(1, id, name_entry.text)
 
+
+func _on_host_button_pressed() -> void:
 	if multiplayer_manager.create_game() != OK:
 		return
+
+	GameData.register_player(multiplayer.get_unique_id(), name_entry.text)
 
 	host_button.hide()
 	join_button.hide()
@@ -42,8 +47,6 @@ func _on_host_button_pressed() -> void:
 
 
 func _on_join_button_pressed() -> void:
-	multiplayer_manager.player_name = name_entry.text
-
 	if multiplayer_manager.join_game() != OK:
 		return
 
@@ -54,6 +57,11 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	GameData.game_seed = randi()
-	multiplayer_manager.send_game_data_to_clients()
+	# set same game seed for all players
+	GameData.set_game_seed.rpc(randi())
+
+	# send all opponents data to other clients
+	for id: int in GameData.players:
+		GameData.register_player.rpc(id, GameData.players[id])
+
 	change_scene.rpc()

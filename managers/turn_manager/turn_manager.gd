@@ -12,9 +12,6 @@ var players: Array[int]
 ## The ID of the player whose turn it is.
 var current_player_idx: int = 0
 
-## The [RandomNumberGenerator] used by this class.
-var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-
 
 ## Returns true if it is the players turn.
 func my_turn() -> bool:
@@ -24,7 +21,8 @@ func my_turn() -> bool:
 ## Randomise which players turn it is.
 @rpc("any_peer", "call_local", "reliable")
 func randomise_turn() -> void:
-	current_player_idx = rng.randi_range(0, len(players) - 1)
+	print(randi())
+	current_player_idx = randi_range(0, len(players) - 1)
 	var current_player_id: int = players[current_player_idx]
 	new_current_player.emit(current_player_id)
 

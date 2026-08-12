@@ -15,7 +15,8 @@ func register_player(player_id: int, player_name: String) -> void:
 	GameData.players[player_id] = player_name
 
 
-@rpc("any_peer", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func set_game_seed(s: int) -> void:
+	print("(" + str(multiplayer.get_unique_id()) + ") New game seed: " + str(s))
 	seed(s) # for rand()
 	GameData.game_seed = s # for own random function eg. deck shuffle

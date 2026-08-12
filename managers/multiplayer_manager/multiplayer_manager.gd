@@ -3,11 +3,17 @@ extends Node
 ## Manages the hosting and joining of players in the game.
 ##
 
-@export var PORT: int = 7777
-@export var DEFAULT_SERVER_IP: String = "localhost"
-@export var MAX_CONNECTIONS: int = 3 # host doesn't count as a connection
+## TODO
+signal player_joined(id: int)
 
-var player_name: String = "Player"
+## TODO
+@export var PORT: int = 7777
+
+## TODO
+@export var DEFAULT_SERVER_IP: String = "localhost"
+
+## TODO
+@export var MAX_CONNECTIONS: int = 3 # host doesn't count as a connection
 
 
 func _ready() -> void:
@@ -26,7 +32,6 @@ func create_game() -> Error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	GameData.register_player(multiplayer.get_unique_id(), player_name)
 	return OK
 
 
@@ -45,14 +50,6 @@ func join_game(address: String = "") -> Error:
 	return OK
 
 
-## Send the game seed and register all players on each client.
-func send_game_data_to_clients() -> void:
-	GameData.set_game_seed.rpc(GameData.game_seed)
-
-	for id: int in GameData.players:
-		GameData.register_player.rpc(id, GameData.players[id])
-
-
 ## Called on the server and all clients when a new peer connects.
 func _on_peer_connected(_id: int) -> void:
 	pass
@@ -63,12 +60,9 @@ func _on_peer_disconnected(id: int) -> void:
 	print("Peer Disconnected: " + str(id))
 
 
-## Called only from clients to register themselves with the server, once they
-## have successfully connected.
+## Called only from clients once they have successfully connected.
 func _on_connected_to_server() -> void:
-	var player_id: int = multiplayer.get_unique_id()
-	GameData.register_player.rpc_id(1, player_id, player_name)
-	print("Registing " + player_name + " with ID " + str(player_id))
+	player_joined.emit(multiplayer.get_unique_id())
 
 
 ## Called only from clients.
