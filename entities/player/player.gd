@@ -1,5 +1,5 @@
 class_name Player
-extends CanvasLayer
+extends Control
 ## The player scene manages all [Card]s in their [member hand].
 ## And applies game actions if their ID matches the [member player_id].
 ##
