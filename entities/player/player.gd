@@ -13,11 +13,11 @@ var player_id: int = 0
 
 func _ready() -> void:
 	player_id = multiplayer.get_unique_id()
-	if not GameManager.players.has(player_id):
+	if not GameData.players.has(player_id):
 		push_warning("Opponent ID doesn't exist")
 	else:
-		name_label.text = GameManager.players[player_id]
-	
+		name_label.text = GameData.players[player_id]
+
 	# remove the placeholder cards
 	for card: Card in hand.get_children():
 		card.queue_free()
@@ -27,5 +27,5 @@ func _ready() -> void:
 func _on_dealt_card(id: int, card: Card) -> void:
 	print("dealing to " + str(id))
 	if id != player_id:
-		return 
+		return
 	hand.add_child(card)

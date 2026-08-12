@@ -14,7 +14,7 @@ var opponent_id: int = 0
 func _ready() -> void:
 	# so the label is in right position
 	hand.set_custom_minimum_size(Vector2(0, hand.size.y))
-	
+
 	# remove the placeholder cards
 	for card: Card in hand.get_children():
 		card.queue_free()
@@ -22,18 +22,17 @@ func _ready() -> void:
 
 ## Check if the ID exists and use it to also set [member name_label].
 func set_id(id: int) -> void:
-	if not GameManager.players.has(id):
+	if not GameData.players.has(id):
 		push_warning("Opponent ID doesn't exist")
 		return
-		
+
 	opponent_id = id
-	name_label.text = GameManager.players[id]
+	name_label.text = GameData.players[id]
 
 
 ## Only accepts cards intented for this opponent.
 func _on_dealt_card(id: int, card: Card) -> void:
 	if id != opponent_id:
-		return 
+		return
 	hand.add_child(card)
 	card.flip_card() # always want these cards face down
-	

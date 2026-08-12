@@ -1,6 +1,6 @@
 extends Node
 ## Autoload used to store persistant data during the game.
-## 
+##
 
 ## The seed used to sycronise games between players.
 var game_seed: int
@@ -12,9 +12,10 @@ var players: Dictionary[int, String] = {}
 @rpc("any_peer", "reliable")
 func register_player(player_id: int, player_name: String) -> void:
 	print("(" + str(multiplayer.get_unique_id()) + ") Registering player: " + str(player_id))
-	GameManager.players[player_id] = player_name
+	GameData.players[player_id] = player_name
 
 
 @rpc("any_peer", "reliable")
 func set_game_seed(s: int) -> void:
-	GameManager.game_seed = s
+	seed(s) # for rand()
+	GameData.game_seed = s # for own random function eg. deck shuffle

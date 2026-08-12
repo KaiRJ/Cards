@@ -26,7 +26,7 @@ func create_game() -> Error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	GameManager.register_player(multiplayer.get_unique_id(), player_name)
+	GameData.register_player(multiplayer.get_unique_id(), player_name)
 	return OK
 
 
@@ -47,10 +47,10 @@ func join_game(address: String = "") -> Error:
 
 ## Send the game seed and register all players on each client.
 func send_game_data_to_clients() -> void:
-	GameManager.set_game_seed.rpc(GameManager.game_seed)
-	
-	for id: int in GameManager.players:
-		GameManager.register_player.rpc(id, GameManager.players[id])
+	GameData.set_game_seed.rpc(GameData.game_seed)
+
+	for id: int in GameData.players:
+		GameData.register_player.rpc(id, GameData.players[id])
 
 
 ## Called on the server and all clients when a new peer connects.
@@ -67,7 +67,7 @@ func _on_peer_disconnected(id: int) -> void:
 ## have successfully connected.
 func _on_connected_to_server() -> void:
 	var player_id: int = multiplayer.get_unique_id()
-	GameManager.register_player.rpc_id(1, player_id, player_name)
+	GameData.register_player.rpc_id(1, player_id, player_name)
 	print("Registing " + player_name + " with ID " + str(player_id))
 
 

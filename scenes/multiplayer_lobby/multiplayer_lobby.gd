@@ -30,10 +30,10 @@ func change_scene() -> void:
 
 func _on_host_button_pressed() -> void:
 	multiplayer_manager.player_name = name_entry.text
-	
+
 	if multiplayer_manager.create_game() != OK:
 		return
-	
+
 	host_button.hide()
 	join_button.hide()
 	name_entry.hide()
@@ -43,10 +43,10 @@ func _on_host_button_pressed() -> void:
 
 func _on_join_button_pressed() -> void:
 	multiplayer_manager.player_name = name_entry.text
-	
+
 	if multiplayer_manager.join_game() != OK:
 		return
-	
+
 	host_button.hide()
 	join_button.hide()
 	name_entry.hide()
@@ -54,5 +54,6 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	GameData.game_seed = randi()
 	multiplayer_manager.send_game_data_to_clients()
 	change_scene.rpc()

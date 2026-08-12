@@ -1,6 +1,6 @@
 class_name OpponentSpawnManager
 extends Node
-## 
+##
 ##
 
 ## The game deck that all the opponents will be connected to.
@@ -31,11 +31,11 @@ func get_opponent_scenes(n: int) -> Array[PackedScene]:
 
 ## Spawn all the opponents in the correct order based on the player.
 func spawn_opponents() -> void:
-	var players: Array[int] = GameManager.players.keys()
+	var players: Array[int] = GameData.players.keys()
 	var n_players: int = len(players)
 	var n_opponents: int = n_players - 1
 	var opponent_scenes: Array[PackedScene] = get_opponent_scenes(n_opponents)
-	
+
 	var first_opponent_idx: int = players.find(multiplayer.get_unique_id()) + 1
 	for i: int in range(n_opponents): # loop over all opponents
 		# use % to loop back around the array

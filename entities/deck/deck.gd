@@ -1,6 +1,6 @@
 class_name Deck
 extends CanvasLayer
-## This scene contains all the functionality of a deck of cards.
+## This scene contains all the functionality of a deck of cards for the game.
 
 ## Signals for dealing cards to each player.
 signal deal(player_id: int, card: Card)
@@ -11,14 +11,23 @@ signal deal(player_id: int, card: Card)
 ## Array to hold all the card textures that make up the deck.
 @export var card_textures: Array[Texture2D]
 
+## The [TurnManager] for the game.
+@export var turn_manager: TurnManager
+
 ## Array to hold all the [Card]s currently in the [param deck].
 var deck: Array[Card]
+
+## The [RandomNumberGenerator] used for shuffling the deck
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 ## The [TextureRect] used for the top of the [param deck] and the back of all [Card]s.
 @onready var top_card: TextureRect = $TopCard
 
 
 func _ready() -> void:
+	if not is_instance_valid(turn_manager):
+		push_error("No TurnManager added!")
+
 	create_deck()
 
 
@@ -30,13 +39,9 @@ func create_deck() -> void:
 		deck.push_back(card)
 
 
-## Shuffle the current deck, using a simple shuffling algorithm and option seed.
+## Shuffle the current deck, using a simple shuffling algorithm.
 @rpc("any_peer", "call_local")
-func shuffle_deck(new_seed: int = -1) -> void:
-	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	if new_seed != -1:
-		rng.seed = new_seed
-
+func shuffle_deck() -> void:
 	for i: int in range(deck.size() - 2):
 		# Pick a random index from i to the end of the array
 		var j: int = rng.randi_range(i, deck.size() - 1)
@@ -53,10 +58,14 @@ func deal_card(player_id: int) -> void:
 	deal.emit(player_id, card)
 
 
-## If a card is a available, deal it to the player than picked it.
+## If a card is a available, deal it to the player that picked it.
 func _on_button_pressed() -> void:
 	if deck.is_empty():
 		return
 
+	if not turn_manager.my_turn():
+		return
+
 	# emit deal card signal on all peers for a specific player
 	deal_card.rpc(multiplayer.get_unique_id())
+	turn_manager.next_turn.rpc()
