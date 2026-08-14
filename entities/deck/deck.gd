@@ -54,18 +54,18 @@ func shuffle_deck() -> void:
 ## Emits the deal card signal for a specific player on every peer, including locally.
 @rpc("any_peer", "call_local")
 func deal_card(player_id: int) -> void:
+	if deck.is_empty():
+		return
+
 	var card: Card = deck.pop_front()
 	deal.emit(player_id, card)
 
 
 ## If a card is a available, deal it to the player that picked it.
 func _on_button_pressed() -> void:
-	if deck.is_empty():
-		return
-
 	if not turn_manager.my_turn():
 		return
 
 	# emit deal card signal on all peers for a specific player
-	deal_card.rpc(multiplayer.get_unique_id())
-	turn_manager.next_turn.rpc()
+	# deal_card.rpc(multiplayer.get_unique_id())
+	# turn_manager.next_turn.rpc()

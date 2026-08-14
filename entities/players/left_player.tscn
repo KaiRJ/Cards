@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cre16r1g4uugb"]
+
+[ext_resource type="Script" uid="uid://bl5r4162bxhde" path="res://entities/players/player.gd" id="1_r1pjh"]
+[ext_resource type="PackedScene" uid="uid://ccwpv05fjn3mr" path="res://entities/card/card.tscn" id="2_neke4"]
+
+[node name="LeftPlayer" type="Control" unique_id=844866256]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("1_r1pjh")
+
+[node name="NameLabel" type="Label" parent="." unique_id=1966591134]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -120.0
+offset_right = 89.0
+offset_bottom = -97.0
+grow_vertical = 2
+text = "Player"
+
+[node name="RotatedContainer" type="Control" parent="." unique_id=1152857126]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+rotation = -1.5707964
+
+[node name="Hand" type="GridContainer" parent="RotatedContainer" unique_id=85479794]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -88.0
+offset_right = 171.0
+offset_bottom = 248.0
+columns = 3
+
+[node name="Card" parent="RotatedContainer/Hand" unique_id=1767337626 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card2" parent="RotatedContainer/Hand" unique_id=1238090089 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card3" parent="RotatedContainer/Hand" unique_id=1003800483 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card4" parent="RotatedContainer/Hand" unique_id=43788489 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card5" parent="RotatedContainer/Hand" unique_id=1697842077 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card6" parent="RotatedContainer/Hand" unique_id=1624671910 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card7" parent="RotatedContainer/Hand" unique_id=1323604653 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card8" parent="RotatedContainer/Hand" unique_id=1176957792 instance=ExtResource("2_neke4")]
+layout_mode = 2
+
+[node name="Card9" parent="RotatedContainer/Hand" unique_id=348243531 instance=ExtResource("2_neke4")]
+layout_mode = 2

@@ -60,7 +60,7 @@ func _on_start_button_pressed() -> void:
 	# set same game seed for all players
 	GameData.set_game_seed.rpc(randi())
 
-	# send all opponents data to other clients
+	# send all player data to other clients
 	for id: int in GameData.players:
 		GameData.register_player.rpc(id, GameData.players[id])
 

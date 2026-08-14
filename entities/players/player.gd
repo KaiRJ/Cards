@@ -4,7 +4,10 @@ extends Control
 ## And applies game actions if their ID matches the [member player_id].
 ##
 
-@onready var hand: HBoxContainer = %Hand
+## ID for multiplyer actions.
+var player_id: int = 0
+
+@onready var hand: GridContainer = %Hand
 @onready var name_label: Label = %NameLabel
 
 
@@ -14,9 +17,10 @@ func _ready() -> void:
 		card.queue_free()
 
 
-## Only accepts cards intended for this player.
+## Only accepts cards intented for this player.
 func _on_dealt_card(id: int, card: Card) -> void:
-	print("dealing to " + str(id))
-	if id != multiplayer.get_unique_id():
+	if id != player_id:
 		return
+
 	hand.add_child(card)
+	card.flip_card() # always want these cards face down
