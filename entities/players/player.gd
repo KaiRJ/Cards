@@ -18,9 +18,11 @@ func _ready() -> void:
 
 
 ## Only accepts cards intented for this player.
-func _on_dealt_card(id: int, card: Card) -> void:
+func _on_dealt_card(id: int, card: Card, face_down: bool = true) -> void:
 	if id != player_id:
 		return
 
 	hand.add_child(card)
-	card.flip_card() # always want these cards face down
+
+	if face_down:
+		card.flip_card()

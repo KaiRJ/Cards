@@ -30,14 +30,18 @@ func change_scene() -> void:
 
 
 func _on_player_joined(id: int) -> void:
-	GameData.register_player.rpc_id(1, id, name_entry.text)
+	GameData.this_player_id = id
+
+	# server is ID 1
+	if id == 1:
+		GameData.register_player(id, name_entry.text)
+	else:
+		GameData.register_player.rpc_id(1, id, name_entry.text)
 
 
 func _on_host_button_pressed() -> void:
 	if multiplayer_manager.create_game() != OK:
 		return
-
-	GameData.register_player(multiplayer.get_unique_id(), name_entry.text)
 
 	host_button.hide()
 	join_button.hide()

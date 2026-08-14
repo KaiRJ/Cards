@@ -32,6 +32,7 @@ func create_game() -> Error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
+	player_joined.emit(multiplayer.get_unique_id())
 	return OK
 
 

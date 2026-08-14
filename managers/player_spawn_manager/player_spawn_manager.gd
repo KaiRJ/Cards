@@ -18,9 +18,11 @@ extends Node
 ## The player on the right of the screen.
 @export var right_player_scene: PackedScene
 
-
 ## TODO
 var players: Dictionary[int, String] = {}
+
+## The unique ID of the player corresponding to the current client.
+var this_player_id: int
 
 
 ## Get the order players will be spawned in the game.
@@ -42,12 +44,11 @@ func get_player_scenes(n: int) -> Array[PackedScene]:
 func spawn_players() -> void:
 	# get the scenes used for spawning the players
 	var n_players: int = len(players)
-	print(n_players)
 	var player_scenes: Array[PackedScene] = get_player_scenes(n_players)
 
 	# get the index of the first player to be spawned
 	var player_ids: Array[int] = players.keys()
-	var first_player_idx: int = player_ids.find(multiplayer.get_unique_id())
+	var first_player_idx: int = player_ids.find(this_player_id)
 
 	# loop over all players
 	for i: int in range(n_players):

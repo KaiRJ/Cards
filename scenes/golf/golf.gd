@@ -1,23 +1,25 @@
 class_name Golf
 extends Control
+##
 
+## TODO
 @onready var deck: Deck = %Deck
-@onready var player: Player = %Player
+
+## TODO
 @onready var player_spawn_manager: PlayerSpawnManager = %PlayerSpawnManager
+
+## TODO
 @onready var turn_manager: TurnManager = %TurnManager
 
 
 func _ready() -> void:
 	# set up game deck
-	deck.deal.connect(player._on_dealt_card)
 	deck.rng.seed = GameData.game_seed
 	deck.shuffle_deck()
 
-	# set up this player
-	player.name_label.text = GameData.players[multiplayer.get_unique_id()]
-
-	# spawn all other players
+	# set up player spawner and spawn all other players
 	player_spawn_manager.players = GameData.players
+	player_spawn_manager.this_player_id = GameData.this_player_id
 	player_spawn_manager.spawn_players()
 
 	# deal cards to each player
@@ -28,6 +30,7 @@ func _ready() -> void:
 	# set up TurnManager and randomise starting player
 	turn_manager.new_current_player.connect(set_label) # label for testing
 	turn_manager.players = GameData.players.keys()
+	turn_manager.this_player_id = GameData.this_player_id
 	turn_manager.randomise_turn()
 
 

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://b15k3o1ems74o" path="res://scenes/golf/golf.gd" id="1_wwokj"]
 [ext_resource type="PackedScene" uid="uid://cywul05fjnrny" path="res://managers/turn_manager/turn_manager.tscn" id="2_c72pn"]
 [ext_resource type="PackedScene" uid="uid://c0te8034o5i1q" path="res://entities/deck/deck.tscn" id="2_eb0sf"]
-[ext_resource type="PackedScene" uid="uid://dsdbkkhg717f4" path="res://entities/players/bottom_player.tscn" id="3_3yn0j"]
 [ext_resource type="PackedScene" uid="uid://c4k4xjwv1b4a3" path="res://managers/player_spawn_manager/player_spawn_manager.tscn" id="4_r6liv"]
 
 [node name="Golf" type="Control" unique_id=94748869]
@@ -15,20 +14,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wwokj")
 
-[node name="TurnManager" parent="." unique_id=38019838 instance=ExtResource("2_c72pn")]
-unique_name_in_owner = true
-
 [node name="PlayerSpawnManager" parent="." unique_id=2110246588 node_paths=PackedStringArray("deck") instance=ExtResource("4_r6liv")]
 unique_name_in_owner = true
 deck = NodePath("../Deck")
 
+[node name="TurnManager" parent="." unique_id=38019838 instance=ExtResource("2_c72pn")]
+unique_name_in_owner = true
+
 [node name="Deck" parent="." unique_id=368494132 node_paths=PackedStringArray("turn_manager") instance=ExtResource("2_eb0sf")]
 unique_name_in_owner = true
 turn_manager = NodePath("../TurnManager")
-
-[node name="Player" parent="." unique_id=556265765 instance=ExtResource("3_3yn0j")]
-unique_name_in_owner = true
-layout_mode = 1
 
 [node name="Label" type="Label" parent="." unique_id=742556829]
 unique_name_in_owner = true
