@@ -11,8 +11,12 @@ signal deal(player_id: int, card: Card)
 ## Array to hold all the card textures that make up the deck.
 @export var card_textures: Array[Texture2D]
 
+## The game manager
+@export var game_manager: GolfGameManager
+
 ## The [TurnManager] for the game.
 @export var turn_manager: TurnManager
+
 
 ## Array to hold all the [Card]s currently in the [param deck].
 var deck: Array[Card]

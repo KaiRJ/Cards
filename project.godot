@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cards"
-run/main_scene="uid://dwyox2qnspqmo"
+run/main_scene="uid://bta7rsgqpalt"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

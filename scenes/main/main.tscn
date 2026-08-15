@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://dwyox2qnspqmo"]
 
-[ext_resource type="PackedScene" uid="uid://bta7rsgqpalt" path="res://scenes/multiplayer_lobby/multiplayer_lobby.tscn" id="7_hujxm"]
+[ext_resource type="Script" uid="uid://bm2xttxgtt1p5" path="res://scenes/main/main.gd" id="1_l3cfh"]
+[ext_resource type="PackedScene" uid="uid://c4k4xjwv1b4a3" path="res://managers/player_manager/player_manager.tscn" id="2_6q06x"]
+[ext_resource type="PackedScene" uid="uid://q5bk4pws06q0" path="res://managers/golf_game_manager/golf_game_manager.tscn" id="2_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://cywul05fjnrny" path="res://managers/turn_manager/turn_manager.tscn" id="3_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://c0te8034o5i1q" path="res://entities/deck/deck.tscn" id="4_hujxm"]
 
 [node name="main" type="Control" unique_id=1777900211]
 layout_mode = 3
@@ -10,7 +14,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_l3cfh")
 
-[node name="MultplayerLobby" parent="." unique_id=651730460 node_paths=PackedStringArray("multiplayer_manager") instance=ExtResource("7_hujxm")]
-layout_mode = 1
-multiplayer_manager = NodePath("")
+[node name="GolfGameManager" parent="." unique_id=222208509 node_paths=PackedStringArray("turn_manager", "player_manager") instance=ExtResource("2_ow5a4")]
+unique_name_in_owner = true
+turn_manager = NodePath("../TurnManager")
+player_manager = NodePath("../PlayerManager")
+
+[node name="TurnManager" parent="." unique_id=38019838 instance=ExtResource("3_ow5a4")]
+unique_name_in_owner = true
+
+[node name="PlayerManager" parent="." unique_id=2110246588 node_paths=PackedStringArray("deck") instance=ExtResource("2_6q06x")]
+unique_name_in_owner = true
+deck = NodePath("../Deck")
+
+[node name="Deck" parent="." unique_id=368494132 node_paths=PackedStringArray("game_manager", "turn_manager") instance=ExtResource("4_hujxm")]
+unique_name_in_owner = true
+game_manager = NodePath("../GolfGameManager")
+turn_manager = NodePath("../TurnManager")
+
+[node name="Label" type="Label" parent="." unique_id=1736929773]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 627.0
+offset_top = 310.0
+offset_right = 667.0
+offset_bottom = 333.0
+text = "Current player"

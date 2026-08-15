@@ -1,12 +1,18 @@
 class_name Card
 extends TextureRect
 ## This scene contains all the functionality of individual cards.
+##
 
-## The front card texture
+signal card_selected(card: Card)
+
+## The front card texture.
 @export var front: Texture2D
 
-## The back card texture
+## The back card texture.
 @export var back: Texture2D
+
+##
+@onready var button: Button = %Button
 
 enum Suit {
 	HEARTS,
@@ -21,6 +27,10 @@ var suit: Suit:
 
 var value: int:
 	get: return value
+
+
+func _ready() -> void:
+	button.pressed.connect(_on_button_pressed)
 
 
 ## Sets the cards textures and it's value and suit based on this texture.
@@ -41,6 +51,13 @@ func setup_card(front_texture: Texture2D, back_texture: Texture2D) -> void:
 func flip_card() -> void:
 	if texture == front:
 		texture = back
+	else:
+		texture = front
+
+
+func _on_button_pressed() -> void:
+	card_selected.emit(self)
+	print("signal emitted")
 
 
 ## Return the suit of this card.

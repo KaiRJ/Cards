@@ -1,15 +1,9 @@
-class_name Golf
 extends Control
-##
 
-## TODO
 @onready var deck: Deck = %Deck
-
-## TODO
-@onready var player_spawn_manager: PlayerSpawnManager = %PlayerSpawnManager
-
-## TODO
+@onready var player_manager: PlayerManager = %PlayerManager
 @onready var turn_manager: TurnManager = %TurnManager
+@onready var game_manager: GolfGameManager = %GolfGameManager
 
 
 func _ready() -> void:
@@ -18,20 +12,21 @@ func _ready() -> void:
 	deck.shuffle_deck()
 
 	# set up player spawner and spawn all other players
-	player_spawn_manager.players = GameData.players
-	player_spawn_manager.this_player_id = GameData.this_player_id
-	player_spawn_manager.spawn_players()
-
-	# deal cards to each player
-	for id: int in GameData.players.keys():
-		for _i: int in range(9):
-			deck.deal_card(id)
+	player_manager.card_selected.connect(game_manager._on_card_selected)
+	player_manager.this_player_id = GameData.this_player_id
+	player_manager.spawn_players(GameData.players)
 
 	# set up TurnManager and randomise starting player
 	turn_manager.new_current_player.connect(set_label) # label for testing
 	turn_manager.players = GameData.players.keys()
 	turn_manager.this_player_id = GameData.this_player_id
 	turn_manager.randomise_turn()
+
+	# deal cards to each player
+	# TODO move to Hand scene, or game manager?
+	for id: int in GameData.players.keys():
+		for _i: int in range(9):
+			deck.deal_card(id)
 
 
 func set_label(id: int) -> void:

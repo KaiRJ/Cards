@@ -4,8 +4,14 @@ extends Control
 ## And applies game actions if their ID matches the [member player_id].
 ##
 
+## TODO
+signal card_selected(player_id: int, card_idx: int)
+
 ## ID for multiplyer actions.
 var player_id: int = 0
+
+## TODO
+var cards: Array[Card] = []
 
 @onready var hand: GridContainer = %Hand
 @onready var name_label: Label = %NameLabel
@@ -22,7 +28,18 @@ func _on_dealt_card(id: int, card: Card, face_down: bool = true) -> void:
 	if id != player_id:
 		return
 
+	cards.append(card)
 	hand.add_child(card)
+
+	# TODO create a function in the turn manager for this?
+	if multiplayer.get_unique_id() == player_id:
+		card.card_selected.connect(_on_card_selected)
+	else:
+		card.button.hide()
 
 	if face_down:
 		card.flip_card()
+
+
+func _on_card_selected(card: Card) -> void:
+	card_selected.emit(player_id, cards.find(card))

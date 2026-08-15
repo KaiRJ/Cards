@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bta7rsgqpalt"]
 
 [ext_resource type="Script" uid="uid://bmslp4mo25htp" path="res://scenes/multiplayer_lobby/multiplayer_lobby.gd" id="1_1ig7j"]
-[ext_resource type="PackedScene" uid="uid://q5bk4pws06q0" path="res://scenes/golf/golf.tscn" id="2_ea4b5"]
+[ext_resource type="PackedScene" uid="uid://dwyox2qnspqmo" path="res://scenes/main/main.tscn" id="2_ea4b5"]
 [ext_resource type="PackedScene" uid="uid://bvinykg7yajou" path="res://managers/multiplayer_manager/multiplayer_manager.tscn" id="2_xk0re"]
 
 [node name="MultplayerLobby" type="Control" unique_id=651730460]

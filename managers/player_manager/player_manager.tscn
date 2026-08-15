@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c4k4xjwv1b4a3"]
+
+[ext_resource type="Script" uid="uid://5at3nauamkj" path="res://managers/player_manager/player_manager.gd" id="1_sdvrw"]
+[ext_resource type="PackedScene" uid="uid://dsdbkkhg717f4" path="res://entities/players/bottom_player.tscn" id="2_sy4uy"]
+[ext_resource type="PackedScene" uid="uid://cre16r1g4uugb" path="res://entities/players/left_player.tscn" id="3_ywe0t"]
+[ext_resource type="PackedScene" uid="uid://cto64aaqdd6s" path="res://entities/players/top_player.tscn" id="4_0g8an"]
+[ext_resource type="PackedScene" uid="uid://ca7uh7r2doxpl" path="res://entities/players/right_player.tscn" id="5_dwppc"]
+
+[node name="PlayerManager" type="Node" unique_id=2110246588]
+script = ExtResource("1_sdvrw")
+bottom_player_scene = ExtResource("2_sy4uy")
+left_player_scene = ExtResource("3_ywe0t")
+top_player_scene = ExtResource("4_0g8an")
+right_player_scene = ExtResource("5_dwppc")

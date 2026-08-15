@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://q5bk4pws06q0"]
+
+[ext_resource type="Script" uid="uid://b15k3o1ems74o" path="res://managers/golf_game_manager/golf_game_manager.gd" id="1_c7kwh"]
+
+[node name="GolfGameManager" type="Node" unique_id=222208509]
+script = ExtResource("1_c7kwh")
