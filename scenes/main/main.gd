@@ -8,11 +8,12 @@ extends Control
 
 func _ready() -> void:
 	# set up game deck
+	deck.deck_selected.connect(game_manager._on_deck_card_selected)
 	deck.rng.seed = GameData.game_seed
 	deck.shuffle_deck()
 
 	# set up player spawner and spawn all other players
-	player_manager.card_selected.connect(game_manager._on_card_selected)
+	player_manager.card_selected.connect(game_manager._on_player_card_selected)
 	player_manager.this_player_id = GameData.this_player_id
 	player_manager.spawn_players(GameData.players)
 
@@ -21,6 +22,8 @@ func _ready() -> void:
 	turn_manager.players = GameData.players.keys()
 	turn_manager.this_player_id = GameData.this_player_id
 	turn_manager.randomise_turn()
+
+
 
 	# deal cards to each player
 	# TODO move to Hand scene, or game manager?

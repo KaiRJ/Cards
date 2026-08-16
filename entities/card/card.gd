@@ -47,6 +47,11 @@ func setup_card(front_texture: Texture2D, back_texture: Texture2D) -> void:
 	texture = front
 
 
+## Simple wrapper for setting up [Card]s using other [Card]s.
+func replace_card(new_card: Card) -> void:
+	setup_card(new_card.front, new_card.back)
+
+
 ## Turns the card over to it's other side
 func flip_card() -> void:
 	if texture == front:

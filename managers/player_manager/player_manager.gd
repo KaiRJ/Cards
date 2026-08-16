@@ -54,11 +54,13 @@ func spawn_players(players_data: Dictionary[int, String]) -> void:
 		deck.deal.connect(player._on_dealt_card)
 
 
-@rpc("any_peer", "call_local", "reliable")
-func flip_players_card(player_id: int, card_idx: int) -> void:
+## TODO tidy function and write doc string
+func get_player_card(player_id: int, card_idx: int) -> Card:
 	for player: Player in players:
 		if player.player_id == player_id:
-			player.cards[card_idx].flip_card()
+			return player.cards[card_idx]
+
+	return
 
 
 ## Get the order players will be spawned in the game.

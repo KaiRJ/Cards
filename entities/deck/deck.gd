@@ -5,18 +5,14 @@ extends CanvasLayer
 ## Signals for dealing cards to each player.
 signal deal(player_id: int, card: Card)
 
+## TODO
+signal deck_selected()
+
 ## The card scene
 @export var card_scene: PackedScene
 
 ## Array to hold all the card textures that make up the deck.
 @export var card_textures: Array[Texture2D]
-
-## The game manager
-@export var game_manager: GolfGameManager
-
-## The [TurnManager] for the game.
-@export var turn_manager: TurnManager
-
 
 ## Array to hold all the [Card]s currently in the [param deck].
 var deck: Array[Card]
@@ -25,13 +21,10 @@ var deck: Array[Card]
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 ## The [TextureRect] used for the top of the [param deck] and the back of all [Card]s.
-@onready var top_card: TextureRect = $TopCard
+@onready var top_card: TextureRect = %TopCard
 
 
 func _ready() -> void:
-	if not is_instance_valid(turn_manager):
-		push_error("No TurnManager added!")
-
 	create_deck()
 
 
@@ -67,9 +60,4 @@ func deal_card(player_id: int) -> void:
 
 ## If a card is a available, deal it to the player that picked it.
 func _on_button_pressed() -> void:
-	if not turn_manager.my_turn():
-		return
-
-	# emit deal card signal on all peers for a specific player
-	# deal_card.rpc(multiplayer.get_unique_id())
-	# turn_manager.next_turn.rpc()
+	deck_selected.emit()

@@ -16,10 +16,11 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_l3cfh")
 
-[node name="GolfGameManager" parent="." unique_id=222208509 node_paths=PackedStringArray("turn_manager", "player_manager") instance=ExtResource("2_ow5a4")]
+[node name="GolfGameManager" parent="." unique_id=222208509 node_paths=PackedStringArray("turn_manager", "player_manager", "deck") instance=ExtResource("2_ow5a4")]
 unique_name_in_owner = true
 turn_manager = NodePath("../TurnManager")
 player_manager = NodePath("../PlayerManager")
+deck = NodePath("../Deck")
 
 [node name="TurnManager" parent="." unique_id=38019838 instance=ExtResource("3_ow5a4")]
 unique_name_in_owner = true
@@ -28,10 +29,8 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 deck = NodePath("../Deck")
 
-[node name="Deck" parent="." unique_id=368494132 node_paths=PackedStringArray("game_manager", "turn_manager") instance=ExtResource("4_hujxm")]
+[node name="Deck" parent="." unique_id=368494132 instance=ExtResource("4_hujxm")]
 unique_name_in_owner = true
-game_manager = NodePath("../GolfGameManager")
-turn_manager = NodePath("../TurnManager")
 
 [node name="Label" type="Label" parent="." unique_id=1736929773]
 unique_name_in_owner = true

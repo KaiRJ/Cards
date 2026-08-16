@@ -22,7 +22,6 @@ func my_turn() -> bool:
 
 
 ## Randomise which players turn it is.
-@rpc("any_peer", "call_local", "reliable")
 func randomise_turn() -> void:
 	current_player_idx = randi_range(0, len(players) - 1)
 	var current_player_id: int = players[current_player_idx]
@@ -30,7 +29,6 @@ func randomise_turn() -> void:
 
 
 ## Move to the next player.
-@rpc("any_peer", "call_local", "reliable")
 func next_turn() -> void:
 	current_player_idx = (current_player_idx + 1) % len(players)
 	var current_player_id: int = players[current_player_idx]
