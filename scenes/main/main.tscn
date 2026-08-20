@@ -16,27 +16,48 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_l3cfh")
 
-[node name="GolfGameManager" parent="." unique_id=222208509 node_paths=PackedStringArray("turn_manager", "player_manager", "deck") instance=ExtResource("2_ow5a4")]
+[node name="GolfGameManager" parent="." unique_id=222208509 node_paths=PackedStringArray("turn_manager", "player_manager", "deck", "bin") instance=ExtResource("2_ow5a4")]
 unique_name_in_owner = true
 turn_manager = NodePath("../TurnManager")
 player_manager = NodePath("../PlayerManager")
-deck = NodePath("../Deck")
+deck = NodePath("../HBoxContainer/Deck")
+bin = NodePath("../HBoxContainer/Bin")
 
 [node name="TurnManager" parent="." unique_id=38019838 instance=ExtResource("3_ow5a4")]
 unique_name_in_owner = true
 
 [node name="PlayerManager" parent="." unique_id=2110246588 node_paths=PackedStringArray("deck") instance=ExtResource("2_6q06x")]
 unique_name_in_owner = true
-deck = NodePath("../Deck")
+deck = NodePath("../HBoxContainer/Deck")
 
-[node name="Deck" parent="." unique_id=368494132 instance=ExtResource("4_hujxm")]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=466515662]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Deck" parent="HBoxContainer" unique_id=368494132 instance=ExtResource("4_hujxm")]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Bin" parent="HBoxContainer" unique_id=1921332963 instance=ExtResource("4_hujxm")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=1736929773]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 627.0
-offset_top = 310.0
-offset_right = 667.0
-offset_bottom = 333.0
+offset_left = 524.0
+offset_top = 242.0
+offset_right = 637.0
+offset_bottom = 265.0
 text = "Current player"

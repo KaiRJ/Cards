@@ -1,5 +1,5 @@
 class_name Deck
-extends CanvasLayer
+extends TextureRect
 ## This scene contains all the functionality of a deck of cards for the game.
 
 ## Signals for dealing cards to each player.
@@ -14,25 +14,32 @@ signal deck_selected()
 ## Array to hold all the card textures that make up the deck.
 @export var card_textures: Array[Texture2D]
 
+## TODO
+@export var back_texture: Texture2D
+
 ## Array to hold all the [Card]s currently in the [param deck].
 var deck: Array[Card]
 
 ## The [RandomNumberGenerator] used for shuffling the deck
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
-## The [TextureRect] used for the top of the [param deck] and the back of all [Card]s.
-@onready var top_card: TextureRect = %TopCard
-
+@onready var select_button: Button = %SelectButton
 
 func _ready() -> void:
-	create_deck()
+	select_button.pressed.connect(_on_button_pressed)
+
+	texture = null # remove default
+	select_button.custom_minimum_size = back_texture.get_size()
+
 
 
 ## Create a new deck of [Card]s based on the textures in [param card_textures].
 func create_deck() -> void:
-	for face: Texture2D in card_textures:
+	texture = back_texture
+
+	for front_texture: Texture2D in card_textures:
 		var card: Card = card_scene.instantiate()
-		card.setup_card(face, top_card.texture)
+		card.setup_card(front_texture, back_texture)
 		deck.push_back(card)
 
 
@@ -56,6 +63,9 @@ func deal_card(player_id: int) -> void:
 
 	var card: Card = deck.pop_front()
 	deal.emit(player_id, card)
+
+	if deck.is_empty():
+		texture = null
 
 
 ## If a card is a available, deal it to the player that picked it.

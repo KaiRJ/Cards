@@ -10,14 +10,20 @@ enum Select {PLAYER_CARD, DECK_CARD, BIN_CARD}
 ## The [PlayerManager] for the game.
 @export var player_manager: PlayerManager
 
-## The [Deck] for the game
+## The [Deck] for the game.
 @export var deck: Deck
+
+## The bin [Deck] for the game.
+@export var bin: Deck
 
 ##
 var player_card: Card
 
 ##
 var deck_card: Card
+
+##
+var bin_card: Card
 
 ## The order the player has selected cards. This is used to decide what to do.
 var selection_order: Array[Select] = []
@@ -26,24 +32,37 @@ var selection_order: Array[Select] = []
 ## Each time a game move is made this function
 @rpc("any_peer", "call_local", "reliable")
 func run_state_machine() -> void:
-	print("running state machine")
-	print(selection_order)
-
 	var turn_complete: bool = false
+
 	if selection_order == [Select.PLAYER_CARD]:
-		print("flip card")
 		player_card.flip_card()
 		turn_complete = true
 
 	elif selection_order == [Select.DECK_CARD]:
-		deck.top_card.texture = deck_card.front
+		deck.texture = deck_card.front
 
 	elif selection_order == [Select.DECK_CARD, Select.PLAYER_CARD]:
 		var temp_card: Card = Card.new()
 		temp_card.replace_card(player_card)
 		player_card.replace_card(deck_card)
 		deck_card.replace_card(temp_card)
-		deck.top_card.texture = temp_card.back
+		deck.texture = temp_card.back
+		turn_complete = true
+
+	elif selection_order == [Select.DECK_CARD, Select.BIN_CARD]:
+		print("wroking ")
+		bin.deck.push_front(bin_card)
+		bin.deck.push_front(deck_card)
+		bin.texture = deck_card.front
+		deck.texture = deck.back_texture
+		turn_complete = true
+
+	elif selection_order == [Select.BIN_CARD, Select.PLAYER_CARD]:
+		var temp_card: Card = Card.new()
+		temp_card.replace_card(player_card)
+		player_card.replace_card(bin_card)
+		bin_card.replace_card(temp_card)
+		bin.texture = bin_card.front
 		turn_complete = true
 
 	if turn_complete:
@@ -54,6 +73,7 @@ func run_state_machine() -> void:
 func reset() -> void:
 	player_card = null
 	deck_card = null
+	bin_card = null
 	selection_order = []
 
 
@@ -63,9 +83,14 @@ func select_card(player_id: int, card_idx: int) -> void:
 	if player_card:
 		return
 
-	player_card = player_manager.get_player_card(player_id, card_idx)
+	var new_player_card: Card = player_manager.get_player_card(player_id, card_idx)
+	if new_player_card.texture == new_player_card.front:
+		return
 
 	selection_order.append(Select.PLAYER_CARD)
+	player_card = new_player_card
+	print(player_card)
+	print(new_player_card)
 	run_state_machine()
 
 
@@ -75,9 +100,24 @@ func select_deck() -> void:
 	if deck_card:
 		return
 
-	deck_card = deck.deck.pop_front()
+	if deck.deck.is_empty():
+		return
 
 	selection_order.append(Select.DECK_CARD)
+	deck_card = deck.deck.pop_front()
+	run_state_machine()
+
+
+## TODO
+@rpc("any_peer", "call_local", "reliable")
+func select_bin() -> void:
+	if bin_card:
+		return
+
+	if not bin.deck.is_empty():
+		bin_card = bin.deck.pop_front()
+
+	selection_order.append(Select.BIN_CARD)
 	run_state_machine()
 
 
@@ -94,3 +134,10 @@ func _on_deck_card_selected() -> void:
 		return
 
 	select_deck.rpc()
+
+
+func _on_bin_card_selected() -> void:
+	if not turn_manager.my_turn():
+		return
+
+	select_bin.rpc()
