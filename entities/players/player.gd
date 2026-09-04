@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 ## Only accepts cards intented for this player.
-func _on_dealt_card(id: int, card: Card, face_down: bool = true) -> void:
+func _on_dealt_card(id: int, card: Card, orientation: Card.Facing) -> void:
 	if id != player_id:
 		return
 
@@ -37,8 +37,7 @@ func _on_dealt_card(id: int, card: Card, face_down: bool = true) -> void:
 	else:
 		card.button.hide()
 
-	if face_down:
-		card.flip_card()
+	card.facing(orientation)
 
 
 func _on_card_selected(card: Card) -> void:

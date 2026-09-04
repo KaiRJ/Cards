@@ -1,18 +1,9 @@
 class_name Card
-extends TextureRect
+extends PanelContainer
 ## This scene contains all the functionality of individual cards.
 ##
 
 signal card_selected(card: Card)
-
-## The front card texture.
-@export var front: Texture2D
-
-## The back card texture.
-@export var back: Texture2D
-
-##
-@onready var button: Button = %Button
 
 enum Suit {
 	HEARTS,
@@ -22,11 +13,27 @@ enum Suit {
 	JOKER
 }
 
+enum Facing {
+	UP,
+	DOWN,
+	HIDDEN}
+
+## The front card texture.
+@export var front: Texture2D
+
+## The back card texture.
+@export var back: Texture2D
+
+## The suit of this card.
 var suit: Suit:
 	get: return suit
 
+## The value of this card.
 var value: int:
 	get: return value
+
+@onready var face: TextureRect = %Face
+@onready var button: Button = %Button
 
 
 func _ready() -> void:
@@ -34,7 +41,7 @@ func _ready() -> void:
 
 
 ## Sets the cards textures and it's value and suit based on this texture.
-func setup_card(front_texture: Texture2D, back_texture: Texture2D) -> void:
+func initialise_card(front_texture: Texture2D, back_texture: Texture2D = back) -> void:
 	# set the textures
 	front = front_texture
 	back = back_texture
@@ -43,29 +50,56 @@ func setup_card(front_texture: Texture2D, back_texture: Texture2D) -> void:
 	suit = _get_card_suit()
 	value = _get_card_value()
 
-	# card starts off face up
-	texture = front
-
 
 ## Simple wrapper for setting up [Card]s using other [Card]s.
-func replace_card(new_card: Card) -> void:
-	setup_card(new_card.front, new_card.back)
+func copy_from_card(new_card: Card) -> void:
+	initialise_card(new_card.front, new_card.back)
 
 
-## Turns the card over to it's other side
-func flip_card() -> void:
-	if texture == front:
-		texture = back
+## Return true if two cards are the same.
+func equals(card: Card) -> bool:
+	if card == null:
+		return false
+
+	return (self.front == card.front) and (self.back == card.back)
+
+
+## TODO
+func facing(f: Facing) -> void:
+	match f:
+		Facing.UP:
+			face.modulate.a = 1.0
+			face.texture = front
+		Facing.DOWN:
+			face.modulate.a = 1.0
+			face.texture = back
+		Facing.HIDDEN:
+			face.modulate.a = 0.0
+
+
+func is_facing(f: Facing) -> bool:
+	match f:
+		Facing.UP:
+			return face.texture == front
+		Facing.DOWN:
+			return face.texture == back
+		Facing.HIDDEN:
+			return face.modulate.a == 0.0
+	return false
+
+
+## Turns the card over to it's other side.
+func flip() -> void:
+	if face.texture == front:
+		face.texture = back
 	else:
-		texture = front
+		face.texture = front
 
 
 func _on_button_pressed() -> void:
 	card_selected.emit(self)
-	print("signal emitted")
 
 
-## Return the suit of this card.
 func _get_card_suit() -> Suit:
 	const suits_map: Dictionary[String, Suit] = {
 		"H" : Suit.HEARTS,

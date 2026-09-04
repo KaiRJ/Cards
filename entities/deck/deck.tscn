@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c0te8034o5i1q"]
 
 [ext_resource type="Script" uid="uid://24eblsabbg5e" path="res://entities/deck/deck.gd" id="1_awifi"]
-[ext_resource type="Texture2D" uid="uid://dn12pkqx4c23e" path="res://entities/deck/cards/back_blue.png" id="1_uw8ea"]
 [ext_resource type="PackedScene" uid="uid://ccwpv05fjn3mr" path="res://entities/card/card.tscn" id="2_u3j8v"]
 [ext_resource type="Texture2D" uid="uid://5ginn1s26rxy" path="res://entities/deck/cards/C1.png" id="3_ruec2"]
 [ext_resource type="Texture2D" uid="uid://k0wvv4kovuns" path="res://entities/deck/cards/H1.png" id="3_vio2e"]
@@ -43,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://c08tdl245224s" path="res://entities/deck/cards/HQ.png" id="40_k2y50"]
 [ext_resource type="Texture2D" uid="uid://vyv3pi605px5" path="res://entities/deck/cards/HT.png" id="41_5cojh"]
 [ext_resource type="Texture2D" uid="uid://cf0qjep67hymn" path="res://entities/deck/cards/S1.png" id="42_qlrij"]
+[ext_resource type="Texture2D" uid="uid://dat58m7xl8dak" path="res://entities/deck/cards/J0.png" id="42_rhalv"]
 [ext_resource type="Texture2D" uid="uid://cwslrra64namr" path="res://entities/deck/cards/S2.png" id="43_5swvi"]
 [ext_resource type="Texture2D" uid="uid://byvhlwt4hedcp" path="res://entities/deck/cards/S3.png" id="44_2bwgo"]
 [ext_resource type="Texture2D" uid="uid://suvkvskaikf" path="res://entities/deck/cards/S4.png" id="45_lq82b"]
@@ -54,27 +54,23 @@
 [ext_resource type="Texture2D" uid="uid://cf4ropp6j5xpm" path="res://entities/deck/cards/SJ.png" id="51_3l56f"]
 [ext_resource type="Texture2D" uid="uid://bfbldeo3fq652" path="res://entities/deck/cards/SK.png" id="52_k8upk"]
 [ext_resource type="Texture2D" uid="uid://bh34iqtxxa61h" path="res://entities/deck/cards/SQ.png" id="53_oexqf"]
-[ext_resource type="Texture2D" uid="uid://c48irn48o6bbw" path="res://entities/deck/cards/ST.png" id="54_fpd22"]
 
-[node name="Deck" type="TextureRect" unique_id=951798426]
+[node name="Deck" type="PanelContainer" unique_id=19550579]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -40.0
+offset_right = 28.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_uw8ea")
 script = ExtResource("1_awifi")
 card_scene = ExtResource("2_u3j8v")
-card_textures = Array[Texture2D]([ExtResource("3_ruec2"), ExtResource("4_2pmft"), ExtResource("5_p2sig"), ExtResource("6_os6r0"), ExtResource("7_idksm"), ExtResource("8_unitv"), ExtResource("9_dfrnc"), ExtResource("10_b0ib8"), ExtResource("11_d5bmx"), ExtResource("12_037um"), ExtResource("13_j7euf"), ExtResource("14_4ey0m"), ExtResource("15_qgn8m"), ExtResource("16_ryarl"), ExtResource("17_wvkir"), ExtResource("18_v44jt"), ExtResource("19_o5dao"), ExtResource("20_0j1gg"), ExtResource("21_eamm2"), ExtResource("22_ual48"), ExtResource("23_ju7tc"), ExtResource("24_f5h7g"), ExtResource("25_u5whc"), ExtResource("26_hlqxl"), ExtResource("27_sr647"), ExtResource("28_s15eb"), ExtResource("3_vio2e"), ExtResource("4_8fl2l"), ExtResource("5_erplf"), ExtResource("6_bx8xh"), ExtResource("7_hoo7u"), ExtResource("8_p2x0p"), ExtResource("9_15x7j"), ExtResource("10_iou26"), ExtResource("37_t1n1v"), ExtResource("38_11rfm"), ExtResource("39_yf0c5"), ExtResource("40_k2y50"), ExtResource("41_5cojh"), ExtResource("42_qlrij"), ExtResource("43_5swvi"), ExtResource("44_2bwgo"), ExtResource("45_lq82b"), ExtResource("46_cxo8s"), ExtResource("47_lxbvg"), ExtResource("48_4m0x5"), ExtResource("49_oent3"), ExtResource("50_km72p"), ExtResource("51_3l56f"), ExtResource("52_k8upk"), ExtResource("53_oexqf"), ExtResource("54_fpd22")])
-back_texture = ExtResource("1_uw8ea")
+deck = Array[Texture2D]([ExtResource("3_ruec2"), ExtResource("4_2pmft"), ExtResource("5_p2sig"), ExtResource("6_os6r0"), ExtResource("7_idksm"), ExtResource("8_unitv"), ExtResource("9_dfrnc"), ExtResource("10_b0ib8"), ExtResource("11_d5bmx"), ExtResource("12_037um"), ExtResource("13_j7euf"), ExtResource("14_4ey0m"), ExtResource("15_qgn8m"), ExtResource("16_ryarl"), ExtResource("17_wvkir"), ExtResource("18_v44jt"), ExtResource("19_o5dao"), ExtResource("20_0j1gg"), ExtResource("21_eamm2"), ExtResource("22_ual48"), ExtResource("23_ju7tc"), ExtResource("24_f5h7g"), ExtResource("25_u5whc"), ExtResource("26_hlqxl"), ExtResource("27_sr647"), ExtResource("28_s15eb"), ExtResource("3_vio2e"), ExtResource("4_8fl2l"), ExtResource("5_erplf"), ExtResource("6_bx8xh"), ExtResource("7_hoo7u"), ExtResource("8_p2x0p"), ExtResource("9_15x7j"), ExtResource("10_iou26"), ExtResource("37_t1n1v"), ExtResource("38_11rfm"), ExtResource("39_yf0c5"), ExtResource("40_k2y50"), ExtResource("41_5cojh"), ExtResource("42_rhalv"), ExtResource("42_qlrij"), ExtResource("43_5swvi"), ExtResource("44_2bwgo"), ExtResource("45_lq82b"), ExtResource("46_cxo8s"), ExtResource("47_lxbvg"), ExtResource("48_4m0x5"), ExtResource("49_oent3"), ExtResource("50_km72p"), ExtResource("51_3l56f"), ExtResource("52_k8upk"), ExtResource("53_oexqf")])
 
-[node name="SelectButton" type="Button" parent="." unique_id=781106149]
+[node name="TopCard" parent="." unique_id=1767337626 instance=ExtResource("2_u3j8v")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2

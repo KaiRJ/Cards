@@ -19,12 +19,6 @@ enum Select {PLAYER_CARD, DECK_CARD, BIN_CARD}
 ##
 var player_card: Card
 
-##
-var deck_card: Card
-
-##
-var bin_card: Card
-
 ## The order the player has selected cards. This is used to decide what to do.
 var selection_order: Array[Select] = []
 
@@ -32,37 +26,38 @@ var selection_order: Array[Select] = []
 ## Each time a game move is made this function
 @rpc("any_peer", "call_local", "reliable")
 func run_state_machine() -> void:
+	print(selection_order)
+
 	var turn_complete: bool = false
 
 	if selection_order == [Select.PLAYER_CARD]:
-		player_card.flip_card()
+		if player_card.is_facing(Card.Facing.UP):
+			reset()
+			return
+
+		player_card.flip()
 		turn_complete = true
 
 	elif selection_order == [Select.DECK_CARD]:
-		deck.texture = deck_card.front
+		deck.top_card.flip()
 
 	elif selection_order == [Select.DECK_CARD, Select.PLAYER_CARD]:
-		var temp_card: Card = Card.new()
-		temp_card.replace_card(player_card)
-		player_card.replace_card(deck_card)
-		deck_card.replace_card(temp_card)
-		deck.texture = temp_card.back
+		bin.push_top(player_card)
+		var deck_card: Card = deck.pop_top()
+		player_card.copy_from_card(deck_card)
+		player_card.facing(Card.Facing.UP)
 		turn_complete = true
 
 	elif selection_order == [Select.DECK_CARD, Select.BIN_CARD]:
-		print("wroking ")
-		bin.deck.push_front(bin_card)
-		bin.deck.push_front(deck_card)
-		bin.texture = deck_card.front
-		deck.texture = deck.back_texture
+		var deck_card: Card = deck.pop_top()
+		bin.push_top(deck_card)
 		turn_complete = true
 
 	elif selection_order == [Select.BIN_CARD, Select.PLAYER_CARD]:
-		var temp_card: Card = Card.new()
-		temp_card.replace_card(player_card)
-		player_card.replace_card(bin_card)
-		bin_card.replace_card(temp_card)
-		bin.texture = bin_card.front
+		var temp_bin_card: Card = bin.pop_top()
+		bin.push_top(player_card)
+		player_card.copy_from_card(temp_bin_card)
+		player_card.facing(Card.Facing.UP)
 		turn_complete = true
 
 	if turn_complete:
@@ -72,50 +67,38 @@ func run_state_machine() -> void:
 
 func reset() -> void:
 	player_card = null
-	deck_card = null
-	bin_card = null
 	selection_order = []
 
 
 ## TODO
 @rpc("any_peer", "call_local", "reliable")
 func select_card(player_id: int, card_idx: int) -> void:
-	if player_card:
-		return
-
-	var new_player_card: Card = player_manager.get_player_card(player_id, card_idx)
-	if new_player_card.texture == new_player_card.front:
+	# can only select one card at a time
+	if player_card != null:
 		return
 
 	selection_order.append(Select.PLAYER_CARD)
-	player_card = new_player_card
-	print(player_card)
-	print(new_player_card)
+	player_card = player_manager.get_player_card(player_id, card_idx)
 	run_state_machine()
 
 
 ## TODO
 @rpc("any_peer", "call_local", "reliable")
 func select_deck() -> void:
-	if deck_card:
-		return
-
 	if deck.deck.is_empty():
 		return
 
 	selection_order.append(Select.DECK_CARD)
-	deck_card = deck.deck.pop_front()
 	run_state_machine()
 
 
 ## TODO
 @rpc("any_peer", "call_local", "reliable")
 func select_bin() -> void:
-	if bin_card:
+	# unselect bin card
+	if selection_order == [Select.BIN_CARD]:
+		reset()
 		return
-
-	if not bin.deck.is_empty():
-		bin_card = bin.deck.pop_front()
 
 	selection_order.append(Select.BIN_CARD)
 	run_state_machine()

@@ -11,7 +11,6 @@ func _ready() -> void:
 	# set up game deck
 	deck.deck_selected.connect(game_manager._on_deck_card_selected)
 	deck.rng.seed = GameData.game_seed
-	deck.create_deck()
 	deck.shuffle_deck()
 
 	# set up bin deck
@@ -33,7 +32,7 @@ func _ready() -> void:
 	# TODO move to Hand scene, or game manager?
 	for id: int in GameData.players.keys():
 		for _i: int in range(9):
-			deck.deal_card(id)
+			deck.deal_card(id, true)
 
 
 func set_label(id: int) -> void:
